@@ -1,11 +1,15 @@
+<?php include 'connection.php'; ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>UAS Web Pro - Ruangan TIK</title>
+    <meta charset="UTF-8">
+    <title>Jadwal Penggunaan Ruangan TIK PNJ</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
             margin: 0;
             padding: 0;
         }
@@ -15,61 +19,72 @@
             text-align: center;
             padding: 1em 0;
         }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            overflow: hidden;
+        main {
+            padding: 1em;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .ruangan-group {
+            margin-bottom: 2em;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        .ruangan-group h2 {
+            color: #333;
         }
-        th {
-            background-color: #4CAF50;
+        .ruangan-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .ruangan-list li {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .ruangan-list a {
+            background-color: #007bff;
             color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #ddd;
+        .ruangan-list a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Sistem Jadwal Ruangan TIK</h1>
+        <h1>Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
     </header>
 
-    <div class="container">
-        <?php
-        include 'connect.php';
+    <main>
+        <!-- Ruangan AA -->
+        <div class="ruangan-group">
+            <h2>Ruangan AA</h2>
+            <ul class="ruangan-list">
+                <?php
+                    $ruangansAA = $conn->query("SELECT nama_ruangan FROM ruangan WHERE nama_ruangan LIKE 'AA%' ORDER BY nama_ruangan");
+                    while($ruangan = $ruangansAA->fetch_assoc()) {
+                        echo "<li><a href='jadwal.php?ruangan=" . htmlspecialchars($ruangan['nama_ruangan']) . "'>" . htmlspecialchars($ruangan['nama_ruangan']) . "</a></li>";
+                    }
+                ?>
+            </ul>
+        </div>
 
-        $sql = "SELECT ruangan.nama_ruangan, ruangan.kapasitas, ruangan.jenis_ruangan, ruangan.lokasi, jadwal.tanggal, jadwal.waktu_mulai, jadwal.waktu_selesai FROM jadwal INNER JOIN ruangan ON jadwal.ruangan_id = ruangan.id";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            echo "<table><tr><th>Nama Ruangan</th><th>Kapasitas</th><th>Jenis Ruangan</th><th>Lokasi</th><th>Tanggal</th><th>Waktu Mulai</th><th>Waktu Selesai</th></tr>";
-            while($row = $result->fetch_assoc()) {
-                echo "<tr><td>" . htmlspecialchars($row["nama_ruangan"]) . "</td><td>" . htmlspecialchars($row["kapasitas"]) . "</td><td>" . htmlspecialchars($row["jenis_ruangan"]) . "</td><td>" . htmlspecialchars($row["lokasi"]) . "</td><td>" . htmlspecialchars($row["tanggal"]) . "</td><td>" . htmlspecialchars($row["waktu_mulai"]) . "</td><td>" . htmlspecialchars($row["waktu_selesai"]) . "</td></tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "Tidak ada jadwal tersedia.";
-        }
-        $conn->close();
-        ?>
-    </div>
-
+        <!-- Ruangan GSG -->
+        <div class="ruangan-group">
+            <h2>Ruangan GSG</h2>
+            <ul class="ruangan-list">
+                <?php
+                    $ruangansGSG = $conn->query("SELECT nama_ruangan FROM ruangan WHERE nama_ruangan LIKE 'GSG%' ORDER BY nama_ruangan");
+                    while($ruangan = $ruangansGSG->fetch_assoc()) {
+                        echo "<li><a href='jadwal.php?ruangan=" . htmlspecialchars($ruangan['nama_ruangan']) . "'>" . htmlspecialchars($ruangan['nama_ruangan']) . "</a></li>";
+                    }
+                ?>
+            </ul>
+        </div>
+    </main>
+    
     <footer>
-        <p>&copy; 2024 Tim Web Pro PNJ</p>
+        <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
     </footer>
 </body>
 </html>
