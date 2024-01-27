@@ -162,21 +162,21 @@ $resultJadwal = $conn->query($sqlJadwal);
                 <?php
                 if ($resultJadwal && $resultJadwal->num_rows > 0) {
                     $no = 1;
-                    while($row = $resultJadwal->fetch_assoc()) {
+                    while ($row = $resultJadwal->fetch_assoc()) {
                         echo "<tr>
-                                <td>".$no++."</td>
-                                <td>".htmlspecialchars($row["nama_dosen"])."</td>
-                                <td>".htmlspecialchars($row["nama_mata_kuliah"])."</td>
-                                <td>".htmlspecialchars($row["smt"])."</td>
-                                <td>".htmlspecialchars($row["kelas"])."</td>
-                                <td>".htmlspecialchars($row["jam_mulai"])."</td>
-                                <td>".htmlspecialchars($row["jam_akhir"])."</td>
-                                <td>".htmlspecialchars($row["hari"])."</td>";
+                                <td style='width: 5%;'>" . $no++ . "</td>
+                                <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
+                                <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
+                                <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
+                                <td style='width: 5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
+                                <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
+                                <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
+                                <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
                         if ($adminLoggedIn) {
-                            echo "<td>
-                                    <a href='edit_jadwal.php?id=".$row["jadwal_id"]."'>Edit</a> |
-                                    <a href='delete_jadwal.php?id=".$row["jadwal_id"]."' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
-                                  </td>";
+                            echo "<td style='width: 7.5%;'>
+                                    <a href='edit_jadwal.php?id=" . $row["jadwal_id"] . "'>Edit</a> |
+                                    <a href='delete_jadwal.php?id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
+                                </td>";
                         }
                         echo "</tr>";
                     }
