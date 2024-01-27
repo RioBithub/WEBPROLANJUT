@@ -11,7 +11,7 @@ $resultRuangan = $conn->query($sqlRuangan);
 $ruangan = ($resultRuangan && $resultRuangan->num_rows > 0) ? $resultRuangan->fetch_assoc() : null;
 
 // Query untuk mengambil jadwal berdasarkan ruangan
-$sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j JOIN ruangan r ON j.ruangan_id = r.ruangan_id WHERE r.nama_ruangan = '{$namaRuangan}' ORDER BY j.hari, j.jam_mulai";
+$sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j JOIN ruangan r ON j.ruangan_id = r.ruangan_id WHERE r.nama_ruangan = '{$namaRuangan}' ORDER BY j.hari DESC, j.jam_mulai";
 $resultJadwal = $conn->query($sqlJadwal);
 ?>
 
@@ -21,12 +21,93 @@ $resultJadwal = $conn->query($sqlJadwal);
     <meta charset="UTF-8">
     <title>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-logout {
+        margin: 1em;
+        text-align: right;
+        }
+        .login-logout a {
+            color: white;
+            text-decoration: none;
+            background-color: #007bff;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        .login-logout a:hover {
+            background-color: #0056b3;
+        }
+
+        .nav-container {
+            width: 100%;
+            min-height: 50px;
+            display: flex;
+                justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            z-index: 10;
+            background-color: rgba(74, 85, 104, 0.8); /* You may need to adjust the color and opacity */
+        }
+
+        .nav-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-list li {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .nav-list li:hover {
+            background-color: #a0aec0; /* You may need to adjust the color */
+            border-radius: 0.25rem;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+        }
+        .footer-container {
+            background-color: #333;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            margin: auto;
+            border-top: 2px solid #000; /* You may need to adjust the color */
+        }
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-inner h1{
+            font-size: 1.5rem; /* Adjust the font size as needed */
+            font-weight: bold;
+            color: #333; /* You may need to adjust the color */
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</h1>
     </header>
-
+    <div class="nav-container">
+        <ul class="nav-list">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <li><a href="logout.php">Logout</a><li>
+            <?php else: ?>
+                <li><a href="login.php">Login Admin</a><li>
+            <?php endif; ?>
+        </ul>
+    </div>
     <?php if ($adminLoggedIn): ?>
         <section>
             <h2>Tambah Jadwal Baru</h2>

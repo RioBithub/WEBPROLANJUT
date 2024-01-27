@@ -1,6 +1,33 @@
 <?php 
 session_start();
 include 'connection.php'; 
+
+// Set locale ke bahasa Indonesia
+// Set locale ke bahasa Indonesia
+setlocale(LC_TIME, 'id_ID');
+
+// Mendapatkan nama hari ini dalam bahasa Indonesia
+$hariIni = date('N');  // Mendapatkan angka hari, 1 untuk Senin, 2 untuk Selasa, dst.
+
+// Defaulting untuk hari Sabtu dan Minggu
+if ($hariIni >= 6) {
+    // Jika hari ini adalah Sabtu atau Minggu, atur $hariIni ke hari Senin
+    $hariIni = 'Senin';
+}
+
+// Reset locale ke default (bahasa sistem) jika diperlukan
+setlocale(LC_TIME, '');
+
+// Variabel $namaRuangan harus didefinisikan sebelumnya
+$namaRuangan = "NamaRuanganContoh";
+
+// Query untuk mengambil jadwal berdasarkan ruangan dan hari ini
+$sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j 
+              JOIN ruangan r ON j.ruangan_id = r.ruangan_id 
+              WHERE j.hari = '{$hariIni}'
+              ORDER BY j.jam_mulai";
+
+$resultJadwal = $conn->query($sqlJadwal);
 ?>
 
 <!DOCTYPE html>
@@ -16,40 +43,18 @@ include 'connection.php';
             margin: 0;
             padding: 0;
         }
-        header, footer {
+        header{
             background-color: #333;
             color: white;
             text-align: center;
             padding: 1em 0;
         }
+        footer{
+            text-align: center;
+            padding: 8px;
+        }
         main {
             padding: 1em;
-        }
-        .ruangan-group {
-            margin-bottom: 2em;
-        }
-        .ruangan-group h2 {
-            color: #333;
-        }
-        .ruangan-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .ruangan-list li {
-            display: inline-block;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        .ruangan-list a {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .ruangan-list a:hover {
-            background-color: #0056b3;
         }
         .login-logout {
             margin: 1em;
@@ -65,44 +70,96 @@ include 'connection.php';
         .login-logout a:hover {
             background-color: #0056b3;
         }
+
+        .nav-container {
+            width: 100%;
+            min-height: 50px;
+            display: flex;
+                justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            z-index: 10;
+            background-color: rgba(74, 85, 104, 0.8); /* You may need to adjust the color and opacity */
+        }
+
+        .nav-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-list li {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .nav-list li:hover {
+            background-color: #a0aec0; /* You may need to adjust the color */
+            border-radius: 0.25rem;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: inherit;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
-        <div class="login-logout">
-            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <a href="logout.php">Logout</a>
-            <?php else: ?>
-                <a href="login.php">Login Admin</a>
-            <?php endif; ?>
-        </div>
     </header>
 
     <main>
-        <div class="ruangan-group">
-            <h2>Ruangan AA</h2>
-            <ul class="ruangan-list">
+    <div class="nav-container">
+        <ul class="nav-list">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <li><a href="logout.php">Logout</a><li>
+            <?php else: ?>
+                <li><a href="login.php">Login Admin</a><li>
+            <?php endif; ?>
+        </ul>
+    </div>
+    <section>
+        <h2>Jadwal Ruangan Hari Ini</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Dosen</th>
+                    <th>Mata Kuliah</th>
+                    <th>Semester</th>
+                    <th>Kelas</th>
+                    <th>Jam Mulai</th>
+                    <th>Jam Akhir</th>
+                    <th>Hari</th>
+                </tr>
+            </thead>
+            <tbody>
                 <?php
-                $ruangansAA = $conn->query("SELECT nama_ruangan FROM ruangan WHERE nama_ruangan LIKE 'AA%' ORDER BY nama_ruangan");
-                while($ruangan = $ruangansAA->fetch_assoc()) {
-                    echo "<li><a href='jadwal.php?ruangan=" . htmlspecialchars($ruangan['nama_ruangan']) . "'>" . htmlspecialchars($ruangan['nama_ruangan']) . "</a></li>";
+                if ($resultJadwal && $resultJadwal->num_rows > 0) {
+                    $no = 1;
+                    while($row = $resultJadwal->fetch_assoc()) {
+                        echo "<tr>
+                                <td>".$no++."</td>
+                                <td>".htmlspecialchars($row["nama_dosen"])."</td>
+                                <td>".htmlspecialchars($row["nama_mata_kuliah"])."</td>
+                                <td>".htmlspecialchars($row["smt"])."</td>
+                                <td>".htmlspecialchars($row["kelas"])."</td>
+                                <td>".htmlspecialchars($row["jam_mulai"])."</td>
+                                <td>".htmlspecialchars($row["jam_akhir"])."</td>
+                                <td>".htmlspecialchars($row["hari"])."</td>";
+                    }
+                } else {
+                    echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
                 }
                 ?>
-            </ul>
-        </div>
-
-        <div class="ruangan-group">
-            <h2>Ruangan GSG</h2>
-            <ul class="ruangan-list">
-                <?php
-                $ruangansGSG = $conn->query("SELECT nama_ruangan FROM ruangan WHERE nama_ruangan LIKE 'GSG%' ORDER BY nama_ruangan");
-                while($ruangan = $ruangansGSG->fetch_assoc()) {
-                    echo "<li><a href='jadwal.php?ruangan=" . htmlspecialchars($ruangan['nama_ruangan']) . "'>" . htmlspecialchars($ruangan['nama_ruangan']) . "</a></li>";
-                }
-                ?>
-            </ul>
-        </div>
+            </tbody>
+        </table>
+    </section>
     </main>
     
     <footer>
