@@ -133,6 +133,7 @@ $resultJadwal = $conn->query($sqlJadwal);
                     <th>Mata Kuliah</th>
                     <th>Semester</th>
                     <th>Kelas</th>
+                    <th>Ruangan</th>
                     <th>Jam Mulai</th>
                     <th>Jam Akhir</th>
                     <th>Hari</th>
@@ -149,6 +150,7 @@ $resultJadwal = $conn->query($sqlJadwal);
                                 <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
                                 <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
                                 <td style='width: 7.5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
+                                <td style='width: 7.5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
                                 <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
                                 <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
                                 <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
