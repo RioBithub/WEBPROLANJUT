@@ -169,7 +169,7 @@ $resultJadwal = $conn->query($sqlJadwal);
         </section>
     </main>
     <div class="footer">
-        <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
+        <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
     </div>
 </body>
 </html>

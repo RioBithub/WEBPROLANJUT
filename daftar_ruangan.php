@@ -55,7 +55,7 @@ include 'connection.php';
             width: 100%;
             min-height: 50px;
             display: flex;
-                justify-content: space-between;
+            justify-content: space-between;
             align-items: center;
             color: #fff;
             z-index: 10;
@@ -128,7 +128,7 @@ include 'connection.php';
     </main>
     
     <div class="footer">
-        <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
+        <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
     </div>
 </body>
 </html>
