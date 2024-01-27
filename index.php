@@ -44,22 +44,6 @@ $resultJadwal = $conn->query($sqlJadwal);
     <title>Jadwal Penggunaan Ruangan TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 0;
-        }
-        header{
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1em 0;
-        }
-        footer{
-            text-align: center;
-            padding: 8px;
-        }
         .login-logout {
             margin: 1em;
             text-align: right;
@@ -114,19 +98,18 @@ $resultJadwal = $conn->query($sqlJadwal);
     <header>
         <h1>Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
     </header>
-
-    <main>
     <div class="nav-container">
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <li><a href="logout.php">Logout</a><li>
+                <li class="nav-right"><a href="logout.php">Logout</a><li>
             <?php else: ?>
-                <li><a href="login.php">Login Admin</a><li>
+                <li class="nav-right"><a href="login.php">Login Admin</a><li>
             <?php endif; ?>
         </ul>
     </div>
+    <main>
     <section>
         <h2>Jadwal Ruangan Hari Ini, <?= $hariIni ?>, <?= $tanggal ?></h2>
         <table>

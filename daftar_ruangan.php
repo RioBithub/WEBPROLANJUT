@@ -90,19 +90,18 @@ include 'connection.php';
     <header>
         <h1>Daftar Ruangan TIK PNJ</h1>
     </header>
-
+    <div class="nav-container">
+        <ul class="nav-list">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <li><a href="logout.php">Logout</a><li>
+            <?php else: ?>
+                <li><a href="login.php">Login Admin</a><li>
+            <?php endif; ?>
+        </ul>
+    </div>
     <main>
-        <div class="nav-container">
-            <ul class="nav-list">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
-                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                    <li><a href="logout.php">Logout</a><li>
-                <?php else: ?>
-                    <li><a href="login.php">Login Admin</a><li>
-                <?php endif; ?>
-            </ul>
-        </div>
         <div class="ruangan-group">
             <h2>Ruangan AA</h2>
             <ul class="ruangan-list">

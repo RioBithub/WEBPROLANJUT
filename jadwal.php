@@ -61,7 +61,7 @@ $resultJadwal = $conn->query($sqlJadwal);
         }
 
         .nav-list li:hover {
-            background-color: #a0aec0; /* You may need to adjust the color */
+            background-color: #a0aec0;
             border-radius: 0.25rem;
         }
 
@@ -70,45 +70,24 @@ $resultJadwal = $conn->query($sqlJadwal);
             color: inherit;
             display: inline-block;
         }
-        .footer-container {
-            background-color: #333;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            margin: auto;
-            border-top: 2px solid #000; /* You may need to adjust the color */
-        }
-        .footer-inner {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .footer-inner h1{
-            font-size: 1.5rem; /* Adjust the font size as needed */
-            font-weight: bold;
-            color: #333; /* You may need to adjust the color */
-        }
     </style>
 </head>
 <body>
     <header>
         <h1>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</h1>
     </header>
+    <div class="nav-container">
+        <ul class="nav-list">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <li class="right-align"><a href="logout.php">Logout</a></li>
+            <?php else: ?>
+                <li class="right-align"><a href="login.php">Login Admin</a></li>
+            <?php endif; ?>
+        </ul>
+    </div>
     <main>
-        <div class="nav-container">
-            <ul class="nav-list">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
-                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                    <li><a href="logout.php">Logout</a><li>
-                <?php else: ?>
-                    <li><a href="login.php">Login Admin</a><li>
-                <?php endif; ?>
-            </ul>
-        </div>
         <?php if ($adminLoggedIn): ?>
             <section>
                 <h2>Tambah Jadwal Baru</h2>
