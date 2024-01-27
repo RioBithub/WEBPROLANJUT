@@ -3,20 +3,27 @@ session_start();
 include 'connection.php'; 
 
 // Set locale ke bahasa Indonesia
-// Set locale ke bahasa Indonesia
 setlocale(LC_TIME, 'id_ID');
 
-// Mendapatkan nama hari ini dalam bahasa Indonesia
-$hariIni = date('N');  // Mendapatkan angka hari, 1 untuk Senin, 2 untuk Selasa, dst.
-
-// Defaulting untuk hari Sabtu dan Minggu
-if ($hariIni >= 6) {
-    // Jika hari ini adalah Sabtu atau Minggu, atur $hariIni ke hari Senin
-    $hariIni = 'Senin';
+// Fungsi untuk konversi nomor ke nama hari dalam bahasa indonesia
+function convertHariToNama($nomorHari) {
+    switch ($nomorHari) {
+        case 1: return 'Senin';
+        case 2: return 'Selasa';
+        case 3: return 'Rabu';
+        case 4: return 'Kamis';
+        case 5: return 'Jumat';
+        case 6: return 'Sabtu';
+        case 7: return 'Minggu';
+        default: return 'Senin'; // Handle nilai di luar rentang 1-7 jika diperlukan
+    }
 }
+// Mendapatkan nama hari ini dalam bahasa Indonesia
+$nomorHari = date('N');  // Mendapatkan angka hari, 1 untuk Senin, 2 untuk Selasa, dst.
 
-// Reset locale ke default (bahasa sistem) jika diperlukan
-setlocale(LC_TIME, '');
+$hariIni = convertHariToNama($nomorHari);
+
+$tanggal = date('d F Y');
 
 // Variabel $namaRuangan harus didefinisikan sebelumnya
 $namaRuangan = "NamaRuanganContoh";
@@ -25,7 +32,7 @@ $namaRuangan = "NamaRuanganContoh";
 $sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j 
               JOIN ruangan r ON j.ruangan_id = r.ruangan_id 
               WHERE j.hari = '{$hariIni}'
-              ORDER BY j.jam_mulai";
+              ORDER BY r.nama_ruangan, j.jam_mulai";
 
 $resultJadwal = $conn->query($sqlJadwal);
 ?>
@@ -52,9 +59,6 @@ $resultJadwal = $conn->query($sqlJadwal);
         footer{
             text-align: center;
             padding: 8px;
-        }
-        main {
-            padding: 1em;
         }
         .login-logout {
             margin: 1em;
@@ -124,7 +128,7 @@ $resultJadwal = $conn->query($sqlJadwal);
         </ul>
     </div>
     <section>
-        <h2>Jadwal Ruangan Hari Ini</h2>
+        <h2>Jadwal Ruangan Hari Ini, <?= $hariIni ?>, <?= $tanggal ?></h2>
         <table>
             <thead>
                 <tr>
@@ -150,9 +154,9 @@ $resultJadwal = $conn->query($sqlJadwal);
                                 <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
                                 <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
                                 <td style='width: 7.5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
-                                <td style='width: 7.5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
-                                <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
-                                <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
+                                <td style='width: 5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
+                                <td style='width: 5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
+                                <td style='width: 5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
                                 <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
                     }
                 } else {
@@ -163,9 +167,8 @@ $resultJadwal = $conn->query($sqlJadwal);
         </table>
     </section>
     </main>
-    
-    <footer>
-         <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
-    </footer>
+    <div class="footer">
+        <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
+    </div>
 </body>
 </html>

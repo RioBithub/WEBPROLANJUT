@@ -10,25 +10,6 @@ include 'connection.php';
     <title>Jadwal Penggunaan Ruangan TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 0;
-        }
-        header{
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1em 0;
-        }
-        footer{
-            text-align: center;
-            padding: 8px;
-        }
-        main {
-            padding: 1em;
-        }
         .ruangan-group {
             margin-bottom: 2em;
         }
@@ -56,8 +37,8 @@ include 'connection.php';
             background-color: #0056b3;
         }
         .login-logout {
-        margin: 1em;
-        text-align: right;
+            margin: 1em;
+            text-align: right;
         }
         .login-logout a {
             color: white;
@@ -147,8 +128,8 @@ include 'connection.php';
         </div>
     </main>
     
-    <footer>
-         <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
-    </footer>
+    <div class="footer">
+        <p>&copy; <?= date("Y"); ?> TIK PNJ - Informatics Engineering</p>
+    </div>
 </body>
 </html>
