@@ -211,8 +211,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
                 </section>
             </div>
-            <?php endif; ?>
-
             <div class="informasiruangan">
                 <section>
                     <?php if ($ruangan): ?>
@@ -254,6 +252,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br/><br/>
             <br/>
             <hr/>
+        <?php else: ?>
+            <?php if ($ruangan): ?>
+                <h2 align="center">Informasi Ruangan</h2>
+                <form action="tambah_jadwal.php" method="post">
+                    <table border="3" width="550" height="200">
+                        <tr>
+                            <th align="left">Nama Ruangan</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Kapasitas</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Jenis Ruangan</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Lokasi</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['lokasi']); ?><</td>
+                        </tr>
+                    </table>
+                </form>
+                <br/>
+                <?php if ($adminLoggedIn): ?>
+                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
+                <?php endif; ?>
+            <?php else: ?>
+                <p>Informasi ruangan tidak tersedia.</p>
+            <?php endif; ?>
+            <hr/>
+        </section>
+        <?php endif; ?>
             <div class="jadwalruangan">
             <section>
                 <h2>Jadwal Ruangan</h2>
