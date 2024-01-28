@@ -153,6 +153,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
 
+        <!-- Tambahkan pesan default username dan password di sini -->
+        <p>Default username dan password adalah "admin" dan "admin".</p>
+
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div>
                 <label>Username</label>

@@ -11,6 +11,42 @@ $ruangan = ($resultRuangan && $resultRuangan->num_rows > 0) ? $resultRuangan->fe
 
 $sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j JOIN ruangan r ON j.ruangan_id = r.ruangan_id WHERE r.nama_ruangan = '{$namaRuangan}' ORDER BY j.hari DESC, j.jam_mulai";
 $resultJadwal = $conn->query($sqlJadwal);
+
+// Inisialisasi variabel error
+$error = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Ambil dan validasi input
+    $ruangan_id = $_POST['ruangan_id'];
+    $nama_dosen = $_POST['nama_dosen'];
+    $mata_kuliah = $_POST['mata_kuliah'];
+    $semester = $_POST['semester'];
+    $kelas = $_POST['kelas'];
+    $jam_mulai = $_POST['jam_mulai'];
+    $jam_akhir = $_POST['jam_akhir'];
+    $hari = $_POST['hari'];
+
+    // Validasi form
+    if (empty($nama_dosen) || empty($mata_kuliah) || empty($semester) || empty($kelas) || empty($jam_mulai) || empty($jam_akhir) || empty($hari)) {
+        $error = "Harap isi semua field sebelum menambahkan jadwal.";
+    } else {
+        // Siapkan perintah SQL untuk insert data
+        $sql = "INSERT INTO jadwal (ruangan_id, nama_dosen, nama_mata_kuliah, smt, kelas, jam_mulai, jam_akhir, hari) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("isssssss", $ruangan_id, $nama_dosen, $mata_kuliah, $semester, $kelas, $jam_mulai, $jam_akhir, $hari);
+
+            if ($stmt->execute()) {
+                // Redirect setelah sukses
+                header("location: jadwal.php?ruangan=" . $namaRuangan);
+                exit;
+            } else {
+                $error = "Terjadi kesalahan. Silakan coba lagi nanti.";
+            }
+            $stmt->close();
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +125,7 @@ $resultJadwal = $conn->query($sqlJadwal);
         <?php if ($adminLoggedIn): ?>
             <section>
                 <h2>Tambah Jadwal Baru</h2>
-                <form action="tambah_jadwal.php" method="post">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?ruangan=' . $namaRuangan; ?>" method="post">
                     <input type="hidden" name="ruangan_id" value="<?= $ruangan ? $ruangan['ruangan_id'] : ''; ?>">
                     Nama Dosen: <input type="text" name="nama_dosen"><br>
                     Mata Kuliah: <input type="text" name="mata_kuliah"><br>
@@ -99,15 +135,18 @@ $resultJadwal = $conn->query($sqlJadwal);
                     Jam Akhir: <input type="time" name="jam_akhir"><br>
                     Hari: 
                     <select name="hari">
-                    <option value="SENIN">Senin</option>
-                    <option value="SELASA">Selasa</option>
-                    <option value="RABU">Rabu</option>
-                    <option value="KAMIS">Kamis</option>
-                    <option value="JUMAT">Jumat</option>
-                    <option value="SABTU">Sabtu</option>
+                        <option value="SENIN">Senin</option>
+                        <option value="SELASA">Selasa</option>
+                        <option value="RABU">Rabu</option>
+                        <option value="KAMIS">Kamis</option>
+                        <option value="JUMAT">Jumat</option>
+                        <option value="SABTU">Sabtu</option>
                     </select><br>
                     <input type="submit" value="Tambah Jadwal">
                 </form>
+                <?php if (!empty($error)): ?>
+                    <p style="color: red;"><?php echo $error; ?></p>
+                <?php endif; ?>
             </section>
         <?php endif; ?>
 
