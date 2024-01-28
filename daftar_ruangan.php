@@ -84,12 +84,34 @@ include 'connection.php';
             color: inherit;
             display: inline-block;
         }
+
+        .utama {
+            background-color: #333;
+            color: white;
+        }
+        h1 {
+            margin-top:15px;
+        }
+        .pnjlogo {
+            margin-left: 20px;
+            margin-top: -70px;
+        }
+        .tiklogo {
+            margin-left: 1235px;
+            margin-top: -70px;
+        }
     </style>
 </head>
 <body>
-    <header>
+    <div class="utama">
         <h1 align="center">Daftar Ruangan TIK PNJ</h1>
-    </header>
+        <div class="pnjlogo">
+            <img src="pnj-logo.svg" alt="logo    tik" width="65" height="70">
+        </div>
+        <div class="tiklogo">
+            <img src="tik-pnj.png" alt="logo pnj" width="120" height="70">
+        </div>
+    </div>
     <div class="nav-container">
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
