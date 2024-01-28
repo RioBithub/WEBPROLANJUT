@@ -94,6 +94,7 @@ include 'connection.php';
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+            <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
                 <li><a href="logout.php">Logout</a><li>
             <?php else: ?>
