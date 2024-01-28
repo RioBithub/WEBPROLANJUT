@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2024 at 04:16 PM
+-- Generation Time: Jan 28, 2024 at 05:46 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -179,7 +179,19 @@ INSERT INTO `jadwal` (`jadwal_id`, `ruangan_id`, `nama_dosen`, `nama_mata_kuliah
 (143, 23, 'Melisa Gustiarna, M.Pd.', 'Pendidikan Agama', '1', 'TI CCIT 1B', '10:50:00', '15:50:00', 'SELASA'),
 (144, 23, 'Rizki Elisa Nalawati, S.T., M.T.', 'Teknologi Multimedia', '3', 'TMJ 3B', '07:30:00', '10:50:00', 'RABU'),
 (145, 23, 'Mira Rosalina, S.Pd., M.T.', 'Pemodelan 3D', '1', 'TMJ 3A', '10:50:00', '15:50:00', 'RABU'),
-(146, 23, 'Dewi Kurniawati, S.S., M.Pd.', 'Bahasa Inggris Untuk TIK', '1', 'TI CCIT 1B', '07:30:00', '10:50:00', 'KAMIS');
+(146, 23, 'Dewi Kurniawati, S.S., M.Pd.', 'Bahasa Inggris Untuk TIK', '1', 'TI CCIT 1B', '07:30:00', '10:50:00', 'KAMIS'),
+(191, 17, 'Dinda Kadarwati, M.Pd.', 'Bahasa Indonesia', '1', 'TI 1B', '07:30:00', '10:50:00', 'SENIN'),
+(192, 17, 'Ayres Pradiptyas, S.ST., M.M.', 'Pancasila', '1', 'TI 1A', '10:50:00', '15:00:00', 'SENIN'),
+(193, 17, 'Dinda Kadarwati, M.Pd.', 'Bahasa Indonesia', '1', 'TI 1A', '07:30:00', '10:50:00', 'SELASA'),
+(194, 17, 'Rizki Elisa Nalawati, S.T., M.T.', 'Teknologi Multimedia', '1', 'TMJ 3A', '07:30:00', '10:50:00', 'RABU'),
+(195, 17, 'Ayu Rosyida Zain, M.T', 'Organisasi & Arsitektur Komputer', '1', 'TI 1A', '13:20:00', '16:40:00', 'RABU'),
+(196, 17, 'Ratna Widya Iswara, S.Pd., M.Pd.', 'English for IT Professional', '1', 'TI 1A', '10:50:00', '15:00:00', 'KAMIS'),
+(197, 17, 'Angel Mardiyono, S.Kom., M.Kom.', 'Sistem Operasi', '1', 'TI 1B', '07:30:00', '10:50:00', 'KAMIS'),
+(198, 17, 'Asep Kurniawan, S.Pd., M.Kom.', 'Jaringan Komputer', '1', 'TI 1B', '10:50:00', '15:00:00', 'JUMAT'),
+(199, 17, 'Euis Oktavianti, S.Si., M.T.I.', 'Metode Numerik', '1', 'TI 3B', '07:30:00', '10:50:00', 'JUMAT'),
+(200, 17, 'Hata Maulana, S.Si., M.T.I.', 'Sistem Operasi', '1', 'TI CCIT 7', '07:30:00', '13:20:00', 'SABTU'),
+(201, 17, 'Hata Maulana, S.Si., M.T.I.', 'Seminar', '1', 'TI CCIT 7', '13:20:00', '18:20:00', 'SABTU'),
+(202, 17, 'Bambang Warsuta, S.Kom., M.T.I.', 'Kapita Selekta I', '1', 'TI CCIT 7', '07:30:00', '18:20:00', 'SABTU');
 
 -- --------------------------------------------------------
 
@@ -266,7 +278,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `jadwal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
