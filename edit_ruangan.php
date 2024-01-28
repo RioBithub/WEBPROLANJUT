@@ -67,7 +67,6 @@ if ($stmt = $conn->prepare($sql)) {
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -75,64 +74,86 @@ $conn->close();
     <title>Edit Ruangan</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef5f3; /* Warna latar yang lebih lembut */
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Tinggi viewport penuh */
         }
-        h2 {
-            color: #333;
-        }
-        form {
-            margin: 20px;
+        .container {
+            width: 80%;
+            max-width: 500px; /* Lebar maksimum untuk container */
+            margin: auto;
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #b2dfdb; /* Border dengan warna hijau toska */
+        }
+        h2 {
+            text-align: center;
+            color: #00695c; /* Warna judul dengan nuansa hijau toska */
+        }
+        form {
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            font-weight: bold;
+            color: #00695c; /* Warna label dengan nuansa hijau toska */
+        }
+        input[type="text"], input[type="submit"] {
+            width: calc(100% - 16px); /* Menghitung lebar dengan padding */
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #b2dfdb; /* Border input dengan warna hijau toska */
             border-radius: 4px;
         }
         input[type="submit"] {
-            background-color: #007bff;
+            background-color: #00695c; /* Warna tombol dengan nuansa hijau toska */
             color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #004d40; /* Warna tombol saat di-hover */
+        }
+        /* Menambahkan responsivitas pada form */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
-    <h2>Edit Ruangan</h2>
-    <?php echo $error; ?>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <input type="hidden" name="ruangan_id" value="<?php echo $ruangan_id; ?>">
-        <label for="nama_ruangan">Nama Ruangan:</label>
-        <input type="text" name="nama_ruangan" id="nama_ruangan" value="<?php echo $ruangan['nama_ruangan']; ?>">
+    <div class="container">
+        <h2>Edit Ruangan</h2>
+        <?php if (!empty($error)): ?>
+            <p style="color: red;"><?php echo $error; ?></p>
+        <?php endif; ?>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <input type="hidden" name="ruangan_id" value="<?php echo $ruangan_id; ?>">
+            <label for="nama_ruangan">Nama Ruangan:</label>
+            <input type="text" name="nama_ruangan" id="nama_ruangan" value="<?php echo $ruangan['nama_ruangan']; ?>" required>
 
-        <label for="kapasitas">Kapasitas:</label>
-        <input type="text" name="kapasitas" id="kapasitas" value="<?php echo $ruangan['kapasitas']; ?>">
+            <label for="kapasitas">Kapasitas:</label>
+            <input type="text" name="kapasitas" id="kapasitas" value="<?php echo $ruangan['kapasitas']; ?>" required>
 
-        <label for="jenis_ruangan">Jenis Ruangan:</label>
-        <input type="text" name="jenis_ruangan" id="jenis_ruangan" value="<?php echo $ruangan['jenis_ruangan']; ?>">
+            <label for="jenis_ruangan">Jenis Ruangan:</label>
+            <input type="text" name="jenis_ruangan" id="jenis_ruangan" value="<?php echo $ruangan['jenis_ruangan']; ?>" required>
 
-        <label for="lokasi">Lokasi:</label>
-        <input type="text" name="lokasi" id="lokasi" value="<?php echo $ruangan['lokasi']; ?>">
+            <label for="lokasi">Lokasi:</label>
+            <input type="text" name="lokasi" id="lokasi" value="<?php echo $ruangan['lokasi']; ?>" required>
 
-        <input type="submit" value="Update Ruangan">
-    </form>
+            <input type="submit" value="Update Ruangan">
+        </form>
+    </div>
 </body>
 </html>

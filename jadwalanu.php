@@ -48,15 +48,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
     <meta charset="UTF-8">
-    <title>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Ruangan TIK PNJ</title>
     <style>
+        header {
+            background-color: #333;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+
+        main {
+            padding: 1em;
+            flex: 1;
+        }
+
+        h1, h2 {
+            margin: 0 0 10px 0;
+        }
+
+        section {
+            padding: 20px;
+            margin: 10px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #cccccc;
+        }
+
+        th {
+            background-color: #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+        }
         .login-logout {
             margin: 1em;
             text-align: right;
@@ -79,21 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             align-items: center;
             color: #fff;
             z-index: 10;
-            background-color: cadetblue; /* Sesuaikan warna dan opasitas sesuai kebutuhan */
-        }
-        .edit-button {
-            background-color: #00a68c;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .edit-button:hover {
-               background-color: #0056b3;
+            background-color: cadetblue;
         }
         .nav-list {
             list-style-type: none;
@@ -114,32 +158,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: inherit;
             display: inline-block;
         }
-        .nav-right{
+        .nav-right {
             position: absolute;
             right: 0;
             margin-right: 10px;
         }
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            margin: 1em;
+        }
         .informasiruangan {
-            margin-left: 20px;
-            margin-right: 700px;
-            margin-top: -488px;
+            margin: 0 auto;
+            max-width: 1200px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #cccccc;
         }
+
+        /* CSS untuk formulir tambah jadwal */
         .tambahjadwal {
-            margin-left: 700px;
-            margin-right: 20px;
-            margin-top: -50px;
+            margin: 0 auto;
+            max-width: 1200px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            margin-top: 20px;
         }
+
+        /* CSS untuk jadwal ruangan */
         .jadwalruangan {
-            margin-left: 20px;
-            margin-right: 20px;
-            margin-top: 10px;
+            margin: 0 auto;
+            max-width: 1500px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            margin-top: 20px;
         }
+       
         .utama {
             background-color: #333;
             color: white;
         }
         h1 {
-            margin-top:15px;
+            margin-top: 15px;
         }
         .pnjlogo {
             margin-left: 20px;
@@ -150,22 +212,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             right: 0;
             margin-top: -78px;
         }
-        @media (max-width: 900px) {
-        .informasiruangan, .tambahjadwal {
-             margin: 20px auto;
-             width: 90%; /* Atau lebar yang sesuai dengan kebutuhan Anda */
-            }
-        }
-
-
-        @media (min-width: 900px) {
-         .informasiruangan, .tambahjadwal {
-             float: none; /* Menghapus float jika ada */
-              margin: 20px auto; /* Menambahkan margin atas dan bawah, dan mengatur margin kiri dan kanan menjadi auto */
-             width: 90%; /* Atau lebar yang sesuai dengan kebutuhan Anda */
-           }
-        }
+        
     </style>
+   
 </head>
 <body>
     <div class="utama">
@@ -197,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <section>
                         <?php if ($ruangan): ?>
                             <h2 align="center">Informasi Ruangan</h2>
-                            <form action="tambah_jadwal.php" method="post">
+                            <form name="jadwalForm" action="tambah_jadwal.php" method="post" onsubmit="return validateForm()">
                                 <table border="3" width="550" height="200">
                                     <tr>
                                         <th align="left">Nama Ruangan</th>
@@ -223,7 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </form>
                             <br/>
                             <?php if ($adminLoggedIn): ?>
-                                <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>" class="edit-button">Edit Informasi Ruangan</a>
+                                <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
                             <?php endif; ?>
                         <?php else: ?>
                             <p>Informasi ruangan tidak tersedia.</p>
@@ -267,22 +316,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <td><input type="time" name="jam_akhir"></td>
                                 </tr>
                                 <tr>
-                                <th align="left">Hari</th>
+                                    <th align="left">Hari</th>
                                     <th>:</th>
-                                    <td>
-                                    <select name="hari">
-                                        <option value="SENIN">SENIN</option>
-                                        <option value="SELASA">SELASA</option>
-                                        <option value="RABU">RABU</option>
-                                        <option value="KAMIS">KAMIS</option>
-                                        <option value="JUMAT">JUMAT</option>
-                                        <option value="SABTU">SABTU</option>
-                                   </select>
-                                   </td>
+                                    <td><input type="text" name="hari"></td>
                                 </tr>
                             </table>
                             <br/>
-                            <input type="submit" class="edit-button" value="Tambah Jadwal">
+                            <input type="submit" value="Tambah Jadwal">
                         </form>
                     </section>
                 </div>

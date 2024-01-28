@@ -5,8 +5,11 @@ include 'connection.php';
 // Set locale ke bahasa Indonesia
 setlocale(LC_TIME, 'id_ID');
 
-// Fungsi untuk konversi nomor ke nama hari dalam bahasa indonesia
 function convertHariToNama($nomorHari) {
+    if ($nomorHari == 7) { // Jika hari Minggu, tampilkan jadwal Senin
+        return 'Senin';
+    }
+
     switch ($nomorHari) {
         case 1: return 'Senin';
         case 2: return 'Selasa';
@@ -14,19 +17,13 @@ function convertHariToNama($nomorHari) {
         case 4: return 'Kamis';
         case 5: return 'Jumat';
         case 6: return 'Sabtu';
-        case 7: return 'Minggu';
-        default: return 'Senin'; // Handle nilai di luar rentang 1-7 jika diperlukan
+        default: return 'Senin'; // Default ke Senin jika terjadi kesalahan
     }
 }
-// Mendapatkan nama hari ini dalam bahasa Indonesia
-$nomorHari = date('N');  // Mendapatkan angka hari, 1 untuk Senin, 2 untuk Selasa, dst.
 
+$nomorHari = date('N');
 $hariIni = convertHariToNama($nomorHari);
-
 $tanggal = date('d F Y');
-
-// Variabel $namaRuangan harus didefinisikan sebelumnya
-$namaRuangan = "NamaRuanganContoh";
 
 // Query untuk mengambil jadwal berdasarkan ruangan dan hari ini
 $sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j 
