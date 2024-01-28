@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            backgroud-color: #dcdcdc;
+            background-color: #dcdcdc;
         }
         .login-logout {
             margin: 1em;
