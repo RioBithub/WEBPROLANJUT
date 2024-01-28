@@ -235,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <th align="left">Lokasi</th>
                                     <th> : </th>
-                                    <td><?= htmlspecialchars($ruangan['lokasi']); ?><</td>
+                                    <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
                                 </tr>
                             </table>
                         </form>
@@ -275,7 +275,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <tr>
                             <th align="left">Lokasi</th>
                             <th> : </th>
-                            <td><?= htmlspecialchars($ruangan['lokasi']); ?><</td>
+                            <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
                         </tr>
                     </table>
                 </form>
