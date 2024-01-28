@@ -135,8 +135,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: -70px;
         }
         .tiklogo {
-            margin-left: 1235px;
-            margin-top: -70px;
+            position: absolute;
+            right: 0;
+            margin-top: -78px;
         }
     </style>
 </head>
@@ -324,8 +325,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
                                 if ($adminLoggedIn) {
                                     echo "<td style='width: 7.5%;'>
-                                            <a href='edit_jadwal.php?id=" . $row["jadwal_id"] . "'>Edit</a> |
-                                            <a href='delete_jadwal.php?id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
+                                            <a href='edit_jadwal.php?jadwal_id=".$row["jadwal_id"]."'>Edit</a> |
+                                            <a href='delete_jadwal.php?jadwal_id=".$row["jadwal_id"]."' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
                                         </td>";
                                 }
                                 echo "</tr>";
