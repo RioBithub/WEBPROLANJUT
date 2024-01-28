@@ -105,8 +105,9 @@ $resultJadwal = $conn->query($sqlJadwal);
             margin-top: -70px;
         }
         .tiklogo {
-            margin-left: 1235px;
-            margin-top: -70px;
+            position: fixed; 
+            top: 0; 
+            right: 0; 
         }
     </style>
 </head>
