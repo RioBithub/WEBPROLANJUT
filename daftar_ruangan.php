@@ -50,7 +50,6 @@ include 'connection.php';
         .login-logout a:hover {
             background-color: #0056b3;
         }
-
         .nav-container {
             width: 100%;
             min-height: 50px;
@@ -61,30 +60,30 @@ include 'connection.php';
             z-index: 10;
             background-color: cadetblue /* You may need to adjust the color and opacity */
         }
-
         .nav-list {
             list-style-type: none;
-            padding: 0;
+            padding-left: 10px;
             margin: 0;
             display: flex;
         }
-
         .nav-list li {
             padding-left: 1rem;
             padding-right: 1rem;
         }
-
         .nav-list li:hover {
             background-color: #008080; /* You may need to adjust the color */
             border-radius: 0.25rem;
         }
-
         .nav-list a {
             text-decoration: none;
             color: inherit;
             display: inline-block;
         }
-
+        .nav-right{
+            position: absolute;
+            right: 0;
+            margin-right: 10px;
+        }
         .utama {
             background-color: #333;
             color: white;
@@ -119,9 +118,9 @@ include 'connection.php';
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
             <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <li><a href="logout.php">Logout</a><li>
+                <li class="nav-right"><a href="logout.php">Logout</a><li>
             <?php else: ?>
-                <li><a href="login.php">Login Admin</a><li>
+                <li class="nav-right"><a href="login.php">Login Admin</a><li>
             <?php endif; ?>
         </ul>
     </div>

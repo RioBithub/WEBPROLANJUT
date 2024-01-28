@@ -42,7 +42,7 @@ include 'connection.php';
 
         .nav-list {
             list-style-type: none;
-            padding: 0;
+            padding-left: 10px;
             margin: 0;
             display: flex;
         }
@@ -71,6 +71,11 @@ include 'connection.php';
             position: absolute;
             right: 0;
             margin-top: -78px;
+        }
+        .nav-right{
+            position: absolute;
+            right: 0;
+            margin-right: 10px;
         }
         h1 {
             margin-top:15px;

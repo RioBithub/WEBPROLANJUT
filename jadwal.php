@@ -56,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        
         .login-logout {
             margin: 1em;
             text-align: right;
@@ -71,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .login-logout a:hover {
             background-color: #0056b3;
         }
-
         .nav-container {
             width: 100%;
             min-height: 50px;
@@ -82,47 +80,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             z-index: 10;
             background-color: cadetblue; /* Adjust the color and opacity as needed */
         }
-
         .nav-list {
             list-style-type: none;
-            padding: 0;
+            padding-left: 10px;
             margin: 0;
             display: flex;
         }
-
         .nav-list li {
             padding-left: 1rem;
             padding-right: 1rem;
         }
-
         .nav-list li:hover {
             background-color: #008080;
             border-radius: 0.25rem;
         }
-
         .nav-list a {
             text-decoration: none;
             color: inherit;
             display: inline-block;
         }
-
+        .nav-right{
+            position: absolute;
+            right: 0;
+            margin-right: 10px;
+        }
         .informasiruangan {
             margin-left: 20px;
             margin-right: 700px;
             margin-top: -490px;
         }
-
         .tambahjadwal {
             margin-left: 700px;
             margin-right: 20px;
         }
-
         .jadwalruangan {
             margin-left: 20px;
             margin-right: 20px;
             margin-top: 10px;
         }
-
         .utama {
             background-color: #333;
             color: white;
@@ -157,9 +152,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
             <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <li class="right-align"><a href="logout.php">Logout</a></li>
+                <li class="nav-right"><a href="logout.php">Logout</a></li>
             <?php else: ?>
-                <li class="right-align"><a href="login.php">Login Admin</a></li>
+                <li class="nav-right"><a href="login.php">Login Admin</a></li>
             <?php endif; ?>
         </ul>
     </div>
@@ -254,41 +249,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br/>
             <hr/>
         <?php else: ?>
-            <?php if ($ruangan): ?>
-                <h2 align="center">Informasi Ruangan</h2>
-                <form action="tambah_jadwal.php" method="post">
-                    <table border="3" width="550" height="200">
-                        <tr>
-                            <th align="left">Nama Ruangan</th>
-                            <th> : </th>
-                            <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
-                        </tr>
-                        <tr>
-                            <th align="left">Kapasitas</th>
-                            <th> : </th>
-                            <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
-                        </tr>
-                        <tr>
-                            <th align="left">Jenis Ruangan</th>
-                            <th> : </th>
-                            <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
-                        </tr>
-                        <tr>
-                            <th align="left">Lokasi</th>
-                            <th> : </th>
-                            <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
-                        </tr>
-                    </table>
-                </form>
-                <br/>
-                <?php if ($adminLoggedIn): ?>
-                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
+            <section>
+                <?php if ($ruangan): ?>
+                    <h2 align="center">Informasi Ruangan</h2>
+                    <form action="tambah_jadwal.php" method="post">
+                        <table border="3" width="550" height="200">
+                            <tr>
+                                <th align="left">Nama Ruangan</th>
+                                <th> : </th>
+                                <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Kapasitas</th>
+                                <th> : </th>
+                                <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Jenis Ruangan</th>
+                                <th> : </th>
+                                <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Lokasi</th>
+                                <th> : </th>
+                                <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <br/>
+                    <?php if ($adminLoggedIn): ?>
+                        <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p>Informasi ruangan tidak tersedia.</p>
                 <?php endif; ?>
-            <?php else: ?>
-                <p>Informasi ruangan tidak tersedia.</p>
-            <?php endif; ?>
-            <hr/>
-        </section>
+                <hr/>
+            </section>
         <?php endif; ?>
             <div class="jadwalruangan">
             <section>

@@ -65,7 +65,6 @@ $resultJadwal = $conn->query($sqlJadwal);
         .login-logout a:hover {
             background-color: #0056b3;
         }
-
         .nav-container {
             width: 100%;
             min-height: 50px;
@@ -76,30 +75,30 @@ $resultJadwal = $conn->query($sqlJadwal);
             z-index: 10;
             background-color: cadetblue; /* You may need to adjust the color and opacity */
         }
-
         .nav-list {
             list-style-type: none;
-            padding: 0;
+            padding-left: 10px;
             margin: 0;
             display: flex;
         }
-
         .nav-list li {
             padding-left: 1rem;
             padding-right: 1rem;
         }
-
         .nav-list li:hover {
             background-color: #008080; /* You may need to adjust the color */
             border-radius: 0.25rem;
         }
-
         .nav-list a {
             text-decoration: none;
             color: inherit;
             display: inline-block;
         }
-
+        .nav-right{
+            position: absolute;
+            right: 0;
+            margin-right: 10px;
+        }
         .pnjlogo {
             margin-left: 20px;
             margin-top: -70px;
