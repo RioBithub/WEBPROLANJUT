@@ -107,11 +107,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .informasiruangan {
             margin-left: 20px;
             margin-right: 700px;
-            margin-top: -490px;
+            margin-top: -488px;
         }
         .tambahjadwal {
             margin-left: 700px;
             margin-right: 20px;
+            margin-top: -50px;
         }
         .jadwalruangan {
             margin-left: 20px;
@@ -160,94 +161,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <main>
         <?php if ($adminLoggedIn): ?>
-            <div class="tambahjadwal">
-                <section>
-                    <h2 align="center">Tambah Jadwal Baru</h2>
-                    <form action="tambah_jadwal.php" method="post">
-                        <input type="hidden" name="ruangan_id" value="<?= $ruangan ? $ruangan['ruangan_id'] : ''; ?>">
-                        <table border="1" width="550" height="100">
-                            <tr>
-                                <th align="left">Nama Dosen</th>
-                                <th>:</th>
-                                <td><input type="text" name="nama_dosen"></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Mata Kuliah</th>
-                                <th>:</th>
-                                <td><input type="text" name="mata_kuliah"></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Semester</th>
-                                <th>:</th>
-                                <td><input type="text" name="semester"></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Kelas</th>
-                                <th>:</th>
-                                <td><input type="text" name="kelas"></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Jam Mulai</th>
-                                <th>:</th>
-                                <td><input type="time" name="jam_mulai"></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Jam Akhir</th>
-                                <th>:</th>
-                                <td><input type="time" name="jam_akhir"></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Hari</th>
-                                <th>:</th>
-                                <td><input type="text" name="hari"></td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <input type="submit" value="Tambah Jadwal">
-                    </form>
-                </section>
-            </div>
-            <div class="informasiruangan">
-                <section>
-                    <?php if ($ruangan): ?>
-                        <h2 align="center">Informasi Ruangan</h2>
+            <section>
+                <div class="tambahjadwal">
+                    <section>
+                        <h2 align="center">Tambah Jadwal Baru</h2>
                         <form action="tambah_jadwal.php" method="post">
-                            <table border="3" width="550" height="200">
+                            <input type="hidden" name="ruangan_id" value="<?= $ruangan ? $ruangan['ruangan_id'] : ''; ?>">
+                            <table border="1" width="550" height="100">
                                 <tr>
-                                    <th align="left">Nama Ruangan</th>
-                                    <th> : </th>
-                                    <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
+                                    <th align="left">Nama Dosen</th>
+                                    <th>:</th>
+                                    <td><input type="text" name="nama_dosen"></td>
                                 </tr>
                                 <tr>
-                                    <th align="left">Kapasitas</th>
-                                    <th> : </th>
-                                    <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
+                                    <th align="left">Mata Kuliah</th>
+                                    <th>:</th>
+                                    <td><input type="text" name="mata_kuliah"></td>
                                 </tr>
                                 <tr>
-                                    <th align="left">Jenis Ruangan</th>
-                                    <th> : </th>
-                                    <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
+                                    <th align="left">Semester</th>
+                                    <th>:</th>
+                                    <td><input type="text" name="semester"></td>
                                 </tr>
                                 <tr>
-                                    <th align="left">Lokasi</th>
-                                    <th> : </th>
-                                    <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
+                                    <th align="left">Kelas</th>
+                                    <th>:</th>
+                                    <td><input type="text" name="kelas"></td>
+                                </tr>
+                                <tr>
+                                    <th align="left">Jam Mulai</th>
+                                    <th>:</th>
+                                    <td><input type="time" name="jam_mulai"></td>
+                                </tr>
+                                <tr>
+                                    <th align="left">Jam Akhir</th>
+                                    <th>:</th>
+                                    <td><input type="time" name="jam_akhir"></td>
+                                </tr>
+                                <tr>
+                                    <th align="left">Hari</th>
+                                    <th>:</th>
+                                    <td><input type="text" name="hari"></td>
                                 </tr>
                             </table>
+                            <br/>
+                            <input type="submit" value="Tambah Jadwal">
                         </form>
-                        <br/>
-                        <?php if ($adminLoggedIn): ?>
-                            <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
+                    </section>
+                </div>
+                <div class="informasiruangan">
+                    <section>
+                        <?php if ($ruangan): ?>
+                            <h2 align="center">Informasi Ruangan</h2>
+                            <form action="tambah_jadwal.php" method="post">
+                                <table border="3" width="550" height="200">
+                                    <tr>
+                                        <th align="left">Nama Ruangan</th>
+                                        <th> : </th>
+                                        <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th align="left">Kapasitas</th>
+                                        <th> : </th>
+                                        <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th align="left">Jenis Ruangan</th>
+                                        <th> : </th>
+                                        <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th align="left">Lokasi</th>
+                                        <th> : </th>
+                                        <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <br/>
+                            <?php if ($adminLoggedIn): ?>
+                                <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <p>Informasi ruangan tidak tersedia.</p>
                         <?php endif; ?>
-                    <?php else: ?>
-                        <p>Informasi ruangan tidak tersedia.</p>
-                    <?php endif; ?>
-                </section>
-            </div>
-            <br/><br/>
-            <br/><br/>
-            <br/>
-            <hr/>
+                    </section>
+                </div>
+                <br/><br/>
+                <br/><br/>
+                <br/>
+                <hr/>
+            </section>
         <?php else: ?>
             <section>
                 <?php if ($ruangan): ?>

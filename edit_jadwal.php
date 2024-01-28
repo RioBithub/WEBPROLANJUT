@@ -32,7 +32,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $hari = $_POST['hari'];
 
     // Update database
-    $updateQuery = "UPDATE jadwal SET ruangan_id = '$ruangan_id', nama_dosen = '$nama_dosen', nama_mata_kuliah = '$nama_mata_kuliah', smt = '$smt', kelas = '$kelas', jam_mulai = '$jam_mulai', jam_akhir = '$jam_akhir', hari = '$hari' WHERE jadwal_id = $jadwal_id";
+    $urutan_hari = array_search(strtoupper($hari), ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU']) + 1;
+
+    $updateQuery = "UPDATE jadwal SET ruangan_id = '$ruangan_id', nama_dosen = '$nama_dosen', 
+                    nama_mata_kuliah = '$nama_mata_kuliah', smt = '$smt', kelas = '$kelas', 
+                    jam_mulai = '$jam_mulai', jam_akhir = '$jam_akhir', hari = '$hari', urutan_hari = $urutan_hari 
+                    WHERE jadwal_id = $jadwal_id";
+
     $updateResult = mysqli_query($conn, $updateQuery);
 
     if($updateResult){
@@ -51,9 +57,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     }
 }
-
-
 ?>
+
 
 
 <!DOCTYPE html>

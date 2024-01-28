@@ -23,11 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jam_akhir = $_POST['jam_akhir'];
     $hari = $_POST['hari'];
 
+    // Calculate urutan_hari
+    $urutan_hari = array_search(strtoupper($hari), ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU']) + 1;
+
     // Siapkan perintah SQL untuk insert data
-    $sql = "INSERT INTO jadwal (ruangan_id, nama_dosen, nama_mata_kuliah, smt, kelas, jam_mulai, jam_akhir, hari) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO jadwal (ruangan_id, nama_dosen, nama_mata_kuliah, smt, kelas, jam_mulai, jam_akhir, hari, urutan_hari) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("isssssss", $ruangan_id, $nama_dosen, $mata_kuliah, $semester, $kelas, $jam_mulai, $jam_akhir, $hari);
+        $stmt->bind_param("isssssssi", $ruangan_id, $nama_dosen, $mata_kuliah, $semester, $kelas, $jam_mulai, $jam_akhir, $hari, $urutan_hari);
 
         if ($stmt->execute()) {
             // Setelah berhasil menambahkan jadwal, arahkan kembali ke halaman jadwal dengan nama ruangan yang sesuai
