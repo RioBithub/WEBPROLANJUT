@@ -44,6 +44,9 @@ $resultJadwal = $conn->query($sqlJadwal);
     <title>Jadwal Penggunaan Ruangan TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        .utama {
+            margin-top: -76px;
+        }
         .login-logout {
             margin: 1em;
             text-align: right;
@@ -51,7 +54,7 @@ $resultJadwal = $conn->query($sqlJadwal);
         .login-logout a {
             color: white;
             text-decoration: none;
-            background-color: #007bff;
+            background-color: #00ffff;
             padding: 8px 12px;
             border-radius: 4px;
         }
@@ -63,11 +66,11 @@ $resultJadwal = $conn->query($sqlJadwal);
             width: 100%;
             min-height: 50px;
             display: flex;
-                justify-content: space-between;
+            justify-content: space-between;
             align-items: center;
             color: #fff;
             z-index: 10;
-            background-color: rgba(74, 85, 104, 0.8); /* You may need to adjust the color and opacity */
+            background-color: cadetblue; /* You may need to adjust the color and opacity */
         }
 
         .nav-list {
@@ -92,66 +95,83 @@ $resultJadwal = $conn->query($sqlJadwal);
             color: inherit;
             display: inline-block;
         }
+
+        .pnjlogo {
+            margin-left: 20px;
+        }
+        .tiklogo {
+            margin-left: 1185px;
+            margin-top: -75px;
+        }
     </style>
 </head>
-<body>
-    <header>
-        <h1>Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
-    </header>
-    <div class="nav-container">
-        <ul class="nav-list">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
-            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <li class="nav-right"><a href="logout.php">Logout</a><li>
-            <?php else: ?>
-                <li class="nav-right"><a href="login.php">Login Admin</a><li>
-            <?php endif; ?>
-        </ul>
+<body bgcolor="#dcdcdc">
+    <div class="pnjlogo">
+        <img src="pnj-logo.svg" alt="logo tik" width="65" height="70">
     </div>
-    <main>
-    <section>
-        <h2>Jadwal Ruangan Hari Ini, <?= $hariIni ?>, <?= $tanggal ?></h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Dosen</th>
-                    <th>Mata Kuliah</th>
-                    <th>Semester</th>
-                    <th>Kelas</th>
-                    <th>Ruangan</th>
-                    <th>Jam Mulai</th>
-                    <th>Jam Akhir</th>
-                    <th>Hari</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($resultJadwal && $resultJadwal->num_rows > 0) {
-                    $no = 1;
-                    while ($row = $resultJadwal->fetch_assoc()) {
-                        echo "<tr>
-                                <td style='width: 5%;'>" . $no++ . "</td>
-                                <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
-                                <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
-                                <td style='width: 7.5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
+    <div class="tiklogo">
+        <img src="tik-pnj.png" alt="logo pnj" width="120" height="70">
+    </div>
+
+    <div class="utama">
+        <header>
+            <h1 align="center">Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
+        </header>
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                    <li class="nav-right"><a href="logout.php">Logout</a><li>
+                <?php else: ?>
+                    <li class="nav-right"><a href="login.php">Login Admin</a><li>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <main>
+        <section>
+            <h2>Jadwal Ruangan Hari Ini, <?= $hariIni ?>, <?= $tanggal ?></h2>
+            <table border="3">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Dosen</th>
+                        <th>Mata Kuliah</th>
+                        <th>Semester</th>
+                        <th>Kelas</th>
+                        <th>Ruangan</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Akhir</th>
+                        <th>Hari</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($resultJadwal && $resultJadwal->num_rows > 0) {
+                        $no = 1;
+                        while ($row = $resultJadwal->fetch_assoc()) {
+                            echo "<tr>
+                                    <td style='width: 5%;'>" . $no++ . "</td>
+                                    <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
+                                    <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
+                                    <td style='width: 7.5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </section>
-    </main>
-    <div class="footer">
-        <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
+                    ?>
+                </tbody>
+            </table>
+        </section>
+        </main>
+        <div class="footer">
+            <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
+        </div>
     </div>
 </body>
 </html>
