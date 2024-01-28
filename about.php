@@ -44,8 +44,3 @@ foreach ($team as $member) {
     </div>
     <?php
 }
-<<<<<<< HEAD
-?>
-=======
-?>
->>>>>>> ba2befbdd531c5bd3cfd1019e112271a0678f356
