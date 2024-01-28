@@ -73,17 +73,65 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Edit Ruangan</title>
-    <!-- Link ke CSS Anda di sini -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h2>Edit Ruangan</h2>
     <?php echo $error; ?>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <input type="hidden" name="ruangan_id" value="<?php echo $ruangan_id; ?>">
-        Nama Ruangan: <input type="text" name="nama_ruangan" value="<?php echo $ruangan['nama_ruangan']; ?>"><br>
-        Kapasitas: <input type="text" name="kapasitas" value="<?php echo $ruangan['kapasitas']; ?>"><br>
-        Jenis Ruangan: <input type="text" name="jenis_ruangan" value="<?php echo $ruangan['jenis_ruangan']; ?>"><br>
-        Lokasi: <input type="text" name="lokasi" value="<?php echo $ruangan['lokasi']; ?>"><br>
+        <label for="nama_ruangan">Nama Ruangan:</label>
+        <input type="text" name="nama_ruangan" id="nama_ruangan" value="<?php echo $ruangan['nama_ruangan']; ?>">
+
+        <label for="kapasitas">Kapasitas:</label>
+        <input type="text" name="kapasitas" id="kapasitas" value="<?php echo $ruangan['kapasitas']; ?>">
+
+        <label for="jenis_ruangan">Jenis Ruangan:</label>
+        <input type="text" name="jenis_ruangan" id="jenis_ruangan" value="<?php echo $ruangan['jenis_ruangan']; ?>">
+
+        <label for="lokasi">Lokasi:</label>
+        <input type="text" name="lokasi" id="lokasi" value="<?php echo $ruangan['lokasi']; ?>">
+
         <input type="submit" value="Update Ruangan">
     </form>
 </body>

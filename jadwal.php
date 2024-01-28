@@ -5,12 +5,10 @@ include 'connection.php';
 $namaRuangan = isset($_GET['ruangan']) ? $_GET['ruangan'] : 'AA204';
 $adminLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 
-// Query untuk mengambil informasi ruangan
 $sqlRuangan = "SELECT * FROM ruangan WHERE nama_ruangan = '{$namaRuangan}'";
 $resultRuangan = $conn->query($sqlRuangan);
 $ruangan = ($resultRuangan && $resultRuangan->num_rows > 0) ? $resultRuangan->fetch_assoc() : null;
 
-// Query untuk mengambil jadwal berdasarkan ruangan
 $sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j JOIN ruangan r ON j.ruangan_id = r.ruangan_id WHERE r.nama_ruangan = '{$namaRuangan}' ORDER BY j.hari DESC, j.jam_mulai";
 $resultJadwal = $conn->query($sqlJadwal);
 ?>
@@ -23,8 +21,8 @@ $resultJadwal = $conn->query($sqlJadwal);
     <link rel="stylesheet" href="styles.css">
     <style>
         .login-logout {
-        margin: 1em;
-        text-align: right;
+            margin: 1em;
+            text-align: right;
         }
         .login-logout a {
             color: white;
@@ -41,11 +39,11 @@ $resultJadwal = $conn->query($sqlJadwal);
             width: 100%;
             min-height: 50px;
             display: flex;
-                justify-content: space-between;
+            justify-content: space-between;
             align-items: center;
             color: #fff;
             z-index: 10;
-            background-color: rgba(74, 85, 104, 0.8); /* You may need to adjust the color and opacity */
+            background-color: rgba(74, 85, 104, 0.8); /* Adjust the color and opacity as needed */
         }
 
         .nav-list {
@@ -99,7 +97,15 @@ $resultJadwal = $conn->query($sqlJadwal);
                     Kelas: <input type="text" name="kelas"><br>
                     Jam Mulai: <input type="time" name="jam_mulai"><br>
                     Jam Akhir: <input type="time" name="jam_akhir"><br>
-                    Hari: <input type="text" name="hari"><br>
+                    Hari: 
+                    <select name="hari">
+                    <option value="SENIN">Senin</option>
+                    <option value="SELASA">Selasa</option>
+                    <option value="RABU">Rabu</option>
+                    <option value="KAMIS">Kamis</option>
+                    <option value="JUMAT">Jumat</option>
+                    <option value="SABTU">Sabtu</option>
+                    </select><br>
                     <input type="submit" value="Tambah Jadwal">
                 </form>
             </section>
@@ -154,9 +160,9 @@ $resultJadwal = $conn->query($sqlJadwal);
                                     <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
                             if ($adminLoggedIn) {
                                 echo "<td style='width: 7.5%;'>
-                                        <a href='edit_jadwal.php?id=" . $row["jadwal_id"] . "'>Edit</a> |
-                                        <a href='delete_jadwal.php?id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
-                                    </td>";
+                                        <a href='edit_jadwal.php?jadwal_id=" . $row["jadwal_id"] . "'>Edit</a> |
+                                        <a href='delete_jadwal.php?jadwal_id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
+                                      </td>";
                             }
                             echo "</tr>";
                         }
