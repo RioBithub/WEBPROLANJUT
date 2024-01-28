@@ -94,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif,;
+            background-color: aqua;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -103,13 +103,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
         }
         .login-container {
-            background-color: white;
+            background-color: #DCDCDC;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             width: 300px;
         }
-        h2 {
+        p {
+            font-size: small;
+            text-align: center;
+        }
+        h1 {
             text-align: center;
         }
         label {
@@ -117,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-bottom: 5px;
         }
         input[type="text"], input[type="password"] {
-            width: 100%;
+            width: 92%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
@@ -140,11 +144,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: red;
             margin-bottom: 15px;
         }
+        .pnjlogo {
+            margin-left: 80px;
+        }
+        .tiklogo {
+            margin-left: 130px;
+            margin-top: -75px;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <div class="pnjlogo">
+            <img src="pnj-logo.svg" alt="logo tik" width="65" height="70">
+        </div>
+        <div class="tiklogo">
+            <img src="tik-pnj.png" alt="logo pnj" width="120" height="70">
+        </div>
+        <h1>Login</h1>
         <p>Harap isi form ini untuk login.</p>
 
         <?php 
@@ -152,9 +169,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<div class="error">' . $login_err . '</div>';
         }
         ?>
-
-        <!-- Tambahkan pesan default username dan password di sini -->
-        <p>Default username dan password adalah "admin" dan "admin".</p>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div>
@@ -171,6 +185,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="submit" value="Login">
             </div>
         </form>
+
+        <!-- Tambahkan pesan default username dan password di sini -->
+        <p>Default username dan password adalah "admin" dan "admin".</p>
     </div>
 </body>
 </html>
