@@ -135,9 +135,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: -70px;
         }
         .tiklogo {
-            position: fixed; 
-            top: 0; 
-            right: 0; 
+            margin-left: 1235px;
+            margin-top: -70px;
         }
     </style>
 </head>
