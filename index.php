@@ -90,7 +90,7 @@ $resultJadwal = $conn->query($sqlJadwal);
         }
 
         .nav-list li:hover {
-            background-color: #a0aec0; /* You may need to adjust the color */
+            background-color: #008080; /* You may need to adjust the color */
             border-radius: 0.25rem;
         }
 
