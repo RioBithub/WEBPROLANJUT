@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .nav-list li:hover {
-            background-color: #a0aec0;
+            background-color: #008080;
             border-radius: 0.25rem;
         }
 
