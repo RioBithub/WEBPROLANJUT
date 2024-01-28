@@ -7,7 +7,7 @@ include 'connection.php';
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Jadwal Penggunaan Ruangan TIK PNJ</title>
+    <title> About </title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .ruangan-group {
@@ -88,7 +88,7 @@ include 'connection.php';
 </head>
 <body>
     <header>
-        <h1 align="center">Daftar Ruangan TIK PNJ</h1>
+        <h1 align="center"> About </h1>
     </header>
     <div class="nav-container">
         <ul class="nav-list">
