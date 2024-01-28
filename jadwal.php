@@ -56,9 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            background-color: #dcdcdc;
-        }
+        
         .login-logout {
             margin: 1em;
             text-align: right;
@@ -82,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             align-items: center;
             color: #fff;
             z-index: 10;
-            background-color: rgba(74, 85, 104, 0.8); /* Adjust the color and opacity as needed */
+            background-color: cadetblue; /* Adjust the color and opacity as needed */
         }
 
         .nav-list {
