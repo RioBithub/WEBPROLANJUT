@@ -44,4 +44,3 @@ foreach ($team as $member) {
     </div>
     <?php
 }
-?>
