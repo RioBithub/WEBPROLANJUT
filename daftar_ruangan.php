@@ -26,12 +26,14 @@ include 'connection.php';
             margin-bottom: 10px;
         }
         .ruangan-list a {
-            background-color: #007bff;
+            background-color: #00A79D;
             color: white;
-            padding: 10px 15px;
+            padding: 10px 20px; /* Wider padding for buttons */
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            display: inline-block; /* Make buttons inline */
+            margin-bottom: 5px; /* Slightly reduce bottom margin for spacing */
         }
         .ruangan-list a:hover {
             background-color: #0056b3;
@@ -58,7 +60,7 @@ include 'connection.php';
             align-items: center;
             color: #fff;
             z-index: 10;
-            background-color: cadetblue /* You may need to adjust the color and opacity */
+            background-color: cadetblue; /* You may need to adjust the color and opacity */
         }
         .nav-list {
             list-style-type: none;
@@ -118,9 +120,9 @@ include 'connection.php';
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
             <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <li class="nav-right"><a href="logout.php">Logout</a><li>
+                <li class="nav-right"><a href="logout.php">Logout</a></li>
             <?php else: ?>
-                <li class="nav-right"><a href="login.php">Login Admin</a><li>
+                <li class="nav-right"><a href="login.php">Login Admin</a></li>
             <?php endif; ?>
         </ul>
     </div>
