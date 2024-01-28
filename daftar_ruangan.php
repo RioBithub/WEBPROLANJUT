@@ -88,7 +88,7 @@ include 'connection.php';
 </head>
 <body>
     <header>
-        <h1>Daftar Ruangan TIK PNJ</h1>
+        <h1 align="center">Daftar Ruangan TIK PNJ</h1>
     </header>
     <div class="nav-container">
         <ul class="nav-list">
