@@ -56,6 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        body {
+            backgroud-color: #dcdcdc;
+        }
         .login-logout {
             margin: 1em;
             text-align: right;
@@ -104,6 +107,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: inherit;
             display: inline-block;
         }
+
+        .informasiruangan {
+            margin-left: 20px;
+            margin-right: 700px;
+            margin-top: -490px;
+        }
+
+        .tambahjadwal {
+            margin-left: 700px;
+            margin-right: 20px;
+        }
+
+        .jadwalruangan {
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -114,6 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
+            <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
                 <li class="right-align"><a href="logout.php">Logout</a></li>
             <?php else: ?>
@@ -123,95 +144,145 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <main>
         <?php if ($adminLoggedIn): ?>
-            <section>
-                <h2>Tambah Jadwal Baru</h2>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?ruangan=' . $namaRuangan; ?>" method="post">
-                    <input type="hidden" name="ruangan_id" value="<?= $ruangan ? $ruangan['ruangan_id'] : ''; ?>">
-                    Nama Dosen: <input type="text" name="nama_dosen"><br>
-                    Mata Kuliah: <input type="text" name="mata_kuliah"><br>
-                    Semester: <input type="text" name="semester"><br>
-                    Kelas: <input type="text" name="kelas"><br>
-                    Jam Mulai: <input type="time" name="jam_mulai"><br>
-                    Jam Akhir: <input type="time" name="jam_akhir"><br>
-                    Hari: 
-                    <select name="hari">
-                        <option value="SENIN">Senin</option>
-                        <option value="SELASA">Selasa</option>
-                        <option value="RABU">Rabu</option>
-                        <option value="KAMIS">Kamis</option>
-                        <option value="JUMAT">Jumat</option>
-                        <option value="SABTU">Sabtu</option>
-                    </select><br>
-                    <input type="submit" value="Tambah Jadwal">
-                </form>
-                <?php if (!empty($error)): ?>
-                    <p style="color: red;"><?php echo $error; ?></p>
-                <?php endif; ?>
-            </section>
-        <?php endif; ?>
-
-        <section>
-            <?php if ($ruangan): ?>
-                <h2>Informasi Ruangan</h2>
-                <p>Nama Ruangan: <?= htmlspecialchars($ruangan['nama_ruangan']); ?></p>
-                <p>Kapasitas: <?= htmlspecialchars($ruangan['kapasitas']); ?></p>
-                <p>Jenis Ruangan: <?= htmlspecialchars($ruangan['jenis_ruangan']); ?></p>
-                <p>Lokasi: <?= htmlspecialchars($ruangan['lokasi']); ?></p>
-                <?php if ($adminLoggedIn): ?>
-                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
-                <?php endif; ?>
-            <?php else: ?>
-                <p>Informasi ruangan tidak tersedia.</p>
+            <div class="tambahjadwal">
+                <section>
+                    <h2 align="center">Tambah Jadwal Baru</h2>
+                    <form action="tambah_jadwal.php" method="post">
+                        <input type="hidden" name="ruangan_id" value="<?= $ruangan ? $ruangan['ruangan_id'] : ''; ?>">
+                        <table border="1" width="550" height="100">
+                            <tr>
+                                <th align="left">Nama Dosen</th>
+                                <th>:</th>
+                                <td><input type="text" name="nama_dosen"></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Mata Kuliah</th>
+                                <th>:</th>
+                                <td><input type="text" name="mata_kuliah"></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Semester</th>
+                                <th>:</th>
+                                <td><input type="text" name="semester"></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Kelas</th>
+                                <th>:</th>
+                                <td><input type="text" name="kelas"></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Jam Mulai</th>
+                                <th>:</th>
+                                <td><input type="time" name="jam_mulai"></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Jam Akhir</th>
+                                <th>:</th>
+                                <td><input type="time" name="jam_akhir"></td>
+                            </tr>
+                            <tr>
+                                <th align="left">Hari</th>
+                                <th>:</th>
+                                <td><input type="text" name="hari"></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <input type="submit" value="Tambah Jadwal">
+                    </form>
+                </section>
+            </div>
             <?php endif; ?>
-        </section>
 
-        <section>
-            <h2>Jadwal Ruangan</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Dosen</th>
-                        <th>Mata Kuliah</th>
-                        <th>Semester</th>
-                        <th>Kelas</th>
-                        <th>Jam Mulai</th>
-                        <th>Jam Akhir</th>
-                        <th>Hari</th>
+            <div class="informasiruangan">
+                <section>
+                    <?php if ($ruangan): ?>
+                        <h2 align="center">Informasi Ruangan</h2>
+                        <form action="tambah_jadwal.php" method="post">
+                            <table border="3" width="550" height="200">
+                                <tr>
+                                    <th align="left">Nama Ruangan</th>
+                                    <th> : </th>
+                                    <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
+                                </tr>
+                                <tr>
+                                    <th align="left">Kapasitas</th>
+                                    <th> : </th>
+                                    <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
+                                </tr>
+                                <tr>
+                                    <th align="left">Jenis Ruangan</th>
+                                    <th> : </th>
+                                    <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
+                                </tr>
+                                <tr>
+                                    <th align="left">Lokasi</th>
+                                    <th> : </th>
+                                    <td><?= htmlspecialchars($ruangan['lokasi']); ?><</td>
+                                </tr>
+                            </table>
+                        </form>
+                        <br/>
                         <?php if ($adminLoggedIn): ?>
-                            <th>Aksi</th>
+                            <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
                         <?php endif; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if ($resultJadwal && $resultJadwal->num_rows > 0) {
-                        $no = 1;
-                        while ($row = $resultJadwal->fetch_assoc()) {
-                            echo "<tr>
-                                    <td style='width: 5%;'>" . $no++ . "</td>
-                                    <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
-                                    <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
-                                    <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
-                                    <td style='width: 5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
-                                    <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
-                                    <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
-                                    <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
-                            if ($adminLoggedIn) {
-                                echo "<td style='width: 7.5%;'>
-                                        <a href='edit_jadwal.php?jadwal_id=" . $row["jadwal_id"] . "'>Edit</a> |
-                                        <a href='delete_jadwal.php?jadwal_id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
-                                      </td>";
+                    <?php else: ?>
+                        <p>Informasi ruangan tidak tersedia.</p>
+                    <?php endif; ?>
+                </section>
+            </div>
+            <br/><br/>
+            <br/><br/>
+            <br/>
+            <hr/>
+            <div class="jadwalruangan">
+            <section>
+                <h2>Jadwal Ruangan</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Dosen</th>
+                            <th>Mata Kuliah</th>
+                            <th>Semester</th>
+                            <th>Kelas</th>
+                            <th>Jam Mulai</th>
+                            <th>Jam Akhir</th>
+                            <th>Hari</th>
+                            <?php if ($adminLoggedIn): ?>
+                                <th>Aksi</th>
+                            <?php endif; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($resultJadwal && $resultJadwal->num_rows > 0) {
+                            $no = 1;
+                            while ($row = $resultJadwal->fetch_assoc()) {
+                                echo "<tr align=center>
+                                            <td style='width: 5%;'>" . $no++ . "</td>
+                                            <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
+                                            <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
+                                            <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
+                                            <td style='width: 5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
+                                            <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
+                                            <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
+                                            <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
+                                if ($adminLoggedIn) {
+                                    echo "<td style='width: 7.5%;'>
+                                            <a href='edit_jadwal.php?id=" . $row["jadwal_id"] . "'>Edit</a> |
+                                            <a href='delete_jadwal.php?id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
+                                        </td>";
+                                }
+                                echo "</tr>";
                             }
-                            echo "</tr>";
+                        } else {
+                            echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
                         }
-                    } else {
-                        echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </section>
+                        ?>
+                    </tbody>
+                </table>
+            </section>
+        </div>
     </main>
     <div class="footer">
         <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
