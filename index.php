@@ -45,7 +45,11 @@ $resultJadwal = $conn->query($sqlJadwal);
     <link rel="stylesheet" href="styles.css">
     <style>
         .utama {
-            margin-top: -76px;
+            background-color: #333;
+            color: white;
+        }
+        h1 {
+            margin-top:15px;
         }
         .login-logout {
             margin: 1em;
@@ -98,22 +102,30 @@ $resultJadwal = $conn->query($sqlJadwal);
 
         .pnjlogo {
             margin-left: 20px;
+            margin-top: -70px;
         }
         .tiklogo {
-            margin-left: 1185px;
-            margin-top: -75px;
+            margin-left: 1235px;
+            margin-top: -70px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
-    </header>
+    <div class="utama">
+        <h1 align="center">Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
+        <div class="pnjlogo">
+            <img src="pnj-logo.svg" alt="logo    tik" width="65" height="70">
+        </div>
+        <div class="tiklogo">
+            <img src="tik-pnj.png" alt="logo pnj" width="120" height="70">
+        </div>
+    </div>
+    
     <div class="nav-container">
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
-            <li><a href="about.php">About Us</a></li>
+            <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
                 <li class="nav-right"><a href="logout.php">Logout</a><li>
             <?php else: ?>

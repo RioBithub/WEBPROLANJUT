@@ -122,12 +122,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-right: 20px;
             margin-top: 10px;
         }
+
+        .utama {
+            background-color: #333;
+            color: white;
+        }
+        h1 {
+            margin-top:15px;
+        }
+        .pnjlogo {
+            margin-left: 20px;
+            margin-top: -70px;
+        }
+        .tiklogo {
+            margin-left: 1235px;
+            margin-top: -70px;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</h1>
-    </header>
+    <div class="utama">
+        <h1 align="center">Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</h1>
+        <div class="pnjlogo">
+            <img src="pnj-logo.svg" alt="logo    tik" width="65" height="70">
+        </div>
+        <div class="tiklogo">
+            <img src="tik-pnj.png" alt="logo pnj" width="120" height="70">
+        </div>
+    </div>
     <div class="nav-container">
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
@@ -189,8 +211,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
                 </section>
             </div>
-            <?php endif; ?>
-
             <div class="informasiruangan">
                 <section>
                     <?php if ($ruangan): ?>
@@ -215,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <th align="left">Lokasi</th>
                                     <th> : </th>
-                                    <td><?= htmlspecialchars($ruangan['lokasi']); ?><</td>
+                                    <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
                                 </tr>
                             </table>
                         </form>
@@ -232,6 +252,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br/><br/>
             <br/>
             <hr/>
+        <?php else: ?>
+            <?php if ($ruangan): ?>
+                <h2 align="center">Informasi Ruangan</h2>
+                <form action="tambah_jadwal.php" method="post">
+                    <table border="3" width="550" height="200">
+                        <tr>
+                            <th align="left">Nama Ruangan</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Kapasitas</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Jenis Ruangan</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Lokasi</th>
+                            <th> : </th>
+                            <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
+                        </tr>
+                    </table>
+                </form>
+                <br/>
+                <?php if ($adminLoggedIn): ?>
+                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
+                <?php endif; ?>
+            <?php else: ?>
+                <p>Informasi ruangan tidak tersedia.</p>
+            <?php endif; ?>
+            <hr/>
+        </section>
+        <?php endif; ?>
             <div class="jadwalruangan">
             <section>
                 <h2>Jadwal Ruangan</h2>
