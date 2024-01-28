@@ -39,7 +39,6 @@ foreach ($team as $member) {
     ?>
     <div class="team-member">
         <h2><?php echo $member['name']; ?></h2>
-        <h3><?php echo $member['position']; ?></h3>
         <p><?php echo $member['bio']; ?></p>
     </div>
     <?php
