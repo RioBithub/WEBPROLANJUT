@@ -194,6 +194,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 /* Atau lebar yang sesuai dengan kebutuhan Anda */
             }
         }
+        .link-tabel{
+            position: absolute;
+            right: 70px;
+            text-decoration: none;
+            display: inline-block;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: #cccccc;
+        }
+        .link-tabel:hover{
+            background-color: #008080;
+            border-radius: 0.25rem;
+        }
     </style>
 </head>
 
@@ -255,14 +268,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th> : </th>
                             <td>
                                 <?= htmlspecialchars($ruangan['lokasi']); ?>
+                                <?php if ($adminLoggedIn): ?>
+                                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>" class="link-tabel">Edit Informasi Ruangan</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     </table>
                 </form>
                 <br />
-                <?php if ($adminLoggedIn): ?>
-                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
-                <?php endif; ?>
             <?php else: ?>
                 <p>Informasi ruangan tidak tersedia.</p>
             <?php endif; ?>
