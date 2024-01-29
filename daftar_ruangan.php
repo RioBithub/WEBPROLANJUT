@@ -1,6 +1,18 @@
 <?php 
 session_start();
 include 'connection.php'; 
+$adminLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
+
+// Ambil data ruangan dari database untuk masing-masing kategori
+$sqlRuanganAA = "SELECT * FROM ruangan WHERE nama_ruangan LIKE 'AA%'";
+$resultRuanganAA = $conn->query($sqlRuanganAA);
+
+$sqlRuanganGSG = "SELECT * FROM ruangan WHERE nama_ruangan LIKE 'GSG%'";
+$resultRuanganGSG = $conn->query($sqlRuanganGSG);
+
+$sqlAddedRooms = "SELECT * FROM ruangan WHERE nama_ruangan NOT LIKE 'AA%' AND nama_ruangan NOT LIKE 'GSG%'";
+$resultAddedRooms = $conn->query($sqlAddedRooms);
+
 ?>
 
 <!DOCTYPE html>
@@ -102,19 +114,43 @@ include 'connection.php';
             right: 0;
             margin-top: -78px;
         }
+        .green-button {
+            background-color: #00A79D; /* Warna hijau toska */
+            color: white;
+            padding: 10px 20px; /* Wider padding for buttons */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* Make buttons inline */
+            margin-bottom: 5px; /* Slightly reduce bottom margin for spacing */
+            border: none; /* Hapus border default */
+            cursor: pointer; /* Ganti kursor saat mengarah ke tombol */
+            }
+
+        .green-button a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .green-button:hover {
+             background-color: #0056b3; /* Warna hijau toska saat dihover */
+}
     </style>
 </head>
 <body>
     <div class="utama">
         <h1 align="center">Daftar Ruangan TIK PNJ</h1>
+        
         <div class="pnjlogo">
             <img src="pnj-logo.svg" alt="logo    tik" width="65" height="70">
         </div>
         <div class="tiklogo">
             <img src="tik-pnj.png" alt="logo pnj" width="120" height="70">
         </div>
+        
     </div>
     <div class="nav-container">
+        
         <ul class="nav-list">
             <li><a href="index.php">Home</a></li>
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
@@ -124,9 +160,11 @@ include 'connection.php';
             <?php else: ?>
                 <li class="nav-right"><a href="login.php">Login Admin</a></li>
             <?php endif; ?>
+            
         </ul>
     </div>
     <main>
+        
         <div class="ruangan-group">
             <h2>Ruangan AA</h2>
             <ul class="ruangan-list">
@@ -150,7 +188,31 @@ include 'connection.php';
                 ?>
             </ul>
         </div>
+        <div class="ruangan-group">
+            <h2>Extra Rooms</h2>
+            <ul class="ruangan-list">
+                <?php
+                if ($resultAddedRooms->num_rows > 0) {
+                    while($ruangan = $resultAddedRooms->fetch_assoc()) {
+                        echo "<li><a href='jadwal.php?ruangan=" . htmlspecialchars($ruangan['nama_ruangan']) . "'>" . htmlspecialchars($ruangan['nama_ruangan']) . "</a></li>";
+                    }
+                } else {
+                    echo "<li>No extra rooms.</li>";
+                }
+                ?>
+            </ul>
+        </div>
     </main>
+        <div>
+        <?php if ($adminLoggedIn): ?>
+            <div style="text-align: center; margin-bottom: 20px;">
+            <button class="green-button"><a href="tambahruangan.php">Tambah Ruangan</a></button>
+        </div>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button class="green-button"><a href="hapusruangan.php">Hapus Ruangan</a></button>
+        </div>
+        <?php endif; ?>
+        </div>
     
     <div class="footer">
         <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
