@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2024 at 10:56 PM
+-- Generation Time: Jan 29, 2024 at 02:57 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -217,19 +217,19 @@ CREATE TABLE `ruangan` (
 
 INSERT INTO `ruangan` (`ruangan_id`, `nama_ruangan`, `kapasitas`, `jenis_ruangan`, `lokasi`) VALUES
 (1, 'AA204', 30, 'Kelas', 'Lantai 2, Gedung AA'),
-(2, 'AA205', 40, 'Kelas', 'Lantai 2, Gedung AA'),
-(5, 'AA301', 50, 'Kelas', 'Lantai 3, Gedung AA'),
-(6, 'AA302', 50, 'Kelas', 'Lantai 3, Gedung AA'),
-(7, 'AA303', 60, 'Kelas', 'Lantai 3, Gedung AA'),
-(8, 'AA304', 60, 'Kelas', 'Lantai 3, Gedung AA'),
-(9, 'AA305', 70, 'Kelas', 'Lantai 3, Gedung AA'),
-(17, 'GSG202', 50, 'Kelas', 'Gedung GSG'),
-(18, 'GSG206', 50, 'Kelas', 'Gedung GSG'),
-(19, 'GSG207', 50, 'Kelas', 'Gedung GSG'),
-(20, 'GSG208', 50, 'Kelas', 'Gedung GSG'),
-(21, 'GSG209', 50, 'Kelas', 'Gedung GSG'),
-(22, 'GSG210', 50, 'Kelas', 'Gedung GSG'),
-(23, 'GSG212', 50, 'Kelas', 'Gedung GSG');
+(2, 'AA205', 30, 'Kelas', 'Lantai 2, Gedung AA'),
+(5, 'AA301', 30, 'Kelas', 'Lantai 3, Gedung AA'),
+(6, 'AA302', 30, 'Kelas', 'Lantai 3, Gedung AA'),
+(7, 'AA303', 30, 'Kelas', 'Lantai 3, Gedung AA'),
+(8, 'AA304', 30, 'Kelas', 'Lantai 3, Gedung AA'),
+(9, 'AA305', 30, 'Kelas', 'Lantai 3, Gedung AA'),
+(17, 'GSG202', 30, 'Kelas', 'Gedung GSG'),
+(18, 'GSG206', 30, 'Kelas', 'Gedung GSG'),
+(19, 'GSG207', 30, 'Kelas', 'Gedung GSG'),
+(20, 'GSG208', 30, 'Kelas', 'Gedung GSG'),
+(21, 'GSG209', 30, 'Kelas', 'Gedung GSG'),
+(22, 'GSG210', 30, 'Kelas', 'Gedung GSG'),
+(23, 'GSG212', 30, 'Kelas', 'Gedung GSG');
 
 -- --------------------------------------------------------
 
