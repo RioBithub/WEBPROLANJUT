@@ -51,16 +51,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
     <meta charset="UTF-8">
-    <title>Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</title>
+    <title>Jadwal Ruangan
+        <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ
+    </title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .login-logout {
             margin: 1em;
             text-align: right;
         }
+
         .login-logout a {
             color: white;
             text-decoration: none;
@@ -68,9 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 8px 12px;
             border-radius: 4px;
         }
+
         .login-logout a:hover {
             background-color: #0056b3;
         }
+
         .nav-container {
             width: 100%;
             min-height: 50px;
@@ -79,8 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             align-items: center;
             color: #fff;
             z-index: 10;
-            background-color: cadetblue; /* Sesuaikan warna dan opasitas sesuai kebutuhan */
+            background-color: cadetblue;
+            /* Sesuaikan warna dan opasitas sesuai kebutuhan */
         }
+
         .edit-button {
             background-color: #00a68c;
             color: white;
@@ -93,83 +101,107 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .edit-button:hover {
-               background-color: #0056b3;
+            background-color: #0056b3;
         }
+
         .nav-list {
             list-style-type: none;
             padding-left: 10px;
             margin: 0;
             display: flex;
         }
+
         .nav-list li {
             padding-left: 1rem;
             padding-right: 1rem;
         }
+
         .nav-list li:hover {
             background-color: #008080;
             border-radius: 0.25rem;
         }
+
         .nav-list a {
             text-decoration: none;
             color: inherit;
             display: inline-block;
         }
-        .nav-right{
+
+        .nav-right {
             position: absolute;
             right: 0;
             margin-right: 10px;
         }
+
         .informasiruangan {
             margin-left: 20px;
             margin-right: 700px;
             margin-top: -488px;
         }
+
         .tambahjadwal {
             margin-left: 700px;
             margin-right: 20px;
             margin-top: -50px;
         }
+
         .jadwalruangan {
             margin-left: 20px;
             margin-right: 20px;
             margin-top: 10px;
         }
+
         .utama {
             background-color: #333;
             color: white;
         }
+
         h1 {
-            margin-top:15px;
+            margin-top: 15px;
         }
+
         .pnjlogo {
             margin-left: 20px;
             margin-top: -70px;
         }
+
         .tiklogo {
             position: absolute;
             right: 0;
             margin-top: -78px;
         }
+
         @media (max-width: 900px) {
-        .informasiruangan, .tambahjadwal {
-             margin: 20px auto;
-             width: 90%; /* Atau lebar yang sesuai dengan kebutuhan Anda */
+
+            .informasiruangan,
+            .tambahjadwal {
+                margin: 20px auto;
+                width: 90%;
+                /* Atau lebar yang sesuai dengan kebutuhan Anda */
             }
         }
 
 
         @media (min-width: 900px) {
-         .informasiruangan, .tambahjadwal {
-             float: none; /* Menghapus float jika ada */
-              margin: 20px auto; /* Menambahkan margin atas dan bawah, dan mengatur margin kiri dan kanan menjadi auto */
-             width: 90%; /* Atau lebar yang sesuai dengan kebutuhan Anda */
-           }
+
+            .informasiruangan,
+            .tambahjadwal {
+                float: none;
+                /* Menghapus float jika ada */
+                margin: 20px auto;
+                /* Menambahkan margin atas dan bawah, dan mengatur margin kiri dan kanan menjadi auto */
+                width: 90%;
+                /* Atau lebar yang sesuai dengan kebutuhan Anda */
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="utama">
-        <h1 align="center">Jadwal Ruangan <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ</h1>
+        <h1 align="center">Jadwal Ruangan
+            <?= htmlspecialchars($namaRuangan); ?> - TIK PNJ
+        </h1>
         <div class="pnjlogo">
             <img src="pnj-logo.svg" alt="logo    tik" width="65" height="70">
         </div>
@@ -184,152 +216,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
                 <li class="nav-right"><a href="logout.php">Logout</a></li>
+                <li class="nav-right" style="right: 80px"><a
+                        href="tambah_jadwal.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Tambah Jadwal</a></li>
             <?php else: ?>
                 <li class="nav-right"><a href="login.php">Login Admin</a></li>
             <?php endif; ?>
         </ul>
     </div>
     <main>
-        <?php if ($adminLoggedIn): ?>
-            <section>
-                
-                <div class="informasiruangan">
-                    <section>
-                        <?php if ($ruangan): ?>
-                            <h2 align="center">Informasi Ruangan</h2>
-                            <form action="tambah_jadwal.php" method="post">
-                                <table border="3" width="550" height="200">
-                                    <tr>
-                                        <th align="left">Nama Ruangan</th>
-                                        <th> : </th>
-                                        <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th align="left">Kapasitas</th>
-                                        <th> : </th>
-                                        <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th align="left">Jenis Ruangan</th>
-                                        <th> : </th>
-                                        <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th align="left">Lokasi</th>
-                                        <th> : </th>
-                                        <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
-                                    </tr>
-                                </table>
-                            </form>
-                            <br/>
-                            <?php if ($adminLoggedIn): ?>
-                                <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>" class="edit-button">Edit Informasi Ruangan</a>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <p>Informasi ruangan tidak tersedia.</p>
-                        <?php endif; ?>
-                    </section>
-                </div>
-                <div class="tambahjadwal">
-                    <section>
-                        <h2 align="center">Tambah Jadwal Baru</h2>
-                        <form action="tambah_jadwal.php" method="post">
-                            <input type="hidden" name="ruangan_id" value="<?= $ruangan ? $ruangan['ruangan_id'] : ''; ?>">
-                            <table border="1" width="550" height="100">
-                                <tr>
-                                    <th align="left">Nama Dosen</th>
-                                    <th>:</th>
-                                    <td><input type="text" name="nama_dosen"></td>
-                                </tr>
-                                <tr>
-                                    <th align="left">Mata Kuliah</th>
-                                    <th>:</th>
-                                    <td><input type="text" name="mata_kuliah"></td>
-                                </tr>
-                                <tr>
-                                    <th align="left">Semester</th>
-                                    <th>:</th>
-                                    <td><input type="text" name="semester"></td>
-                                </tr>
-                                <tr>
-                                    <th align="left">Kelas</th>
-                                    <th>:</th>
-                                    <td><input type="text" name="kelas"></td>
-                                </tr>
-                                <tr>
-                                    <th align="left">Jam Mulai</th>
-                                    <th>:</th>
-                                    <td><input type="time" name="jam_mulai"></td>
-                                </tr>
-                                <tr>
-                                    <th align="left">Jam Akhir</th>
-                                    <th>:</th>
-                                    <td><input type="time" name="jam_akhir"></td>
-                                </tr>
-                                <tr>
-                                <th align="left">Hari</th>
-                                    <th>:</th>
-                                    <td>
-                                    <select name="hari">
-                                        <option value="SENIN">SENIN</option>
-                                        <option value="SELASA">SELASA</option>
-                                        <option value="RABU">RABU</option>
-                                        <option value="KAMIS">KAMIS</option>
-                                        <option value="JUMAT">JUMAT</option>
-                                        <option value="SABTU">SABTU</option>
-                                   </select>
-                                   </td>
-                                </tr>
-                            </table>
-                            <br/>
-                            <input type="submit" class="edit-button" value="Tambah Jadwal">
-                        </form>
-                    </section>
-                </div>
-                <br/><br/>
-                <br/><br/>
-                <br/>
-                <hr/>
-            </section>
-        <?php else: ?>
-            <section>
-                <?php if ($ruangan): ?>
-                    <h2 align="center">Informasi Ruangan</h2>
-                    <form action="tambah_jadwal.php" method="post">
-                        <table border="3" width="550" height="200">
-                            <tr>
-                                <th align="left">Nama Ruangan</th>
-                                <th> : </th>
-                                <td><?= htmlspecialchars($ruangan['nama_ruangan']); ?></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Kapasitas</th>
-                                <th> : </th>
-                                <td><?= htmlspecialchars($ruangan['kapasitas']); ?></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Jenis Ruangan</th>
-                                <th> : </th>
-                                <td><?= htmlspecialchars($ruangan['jenis_ruangan']); ?></td>
-                            </tr>
-                            <tr>
-                                <th align="left">Lokasi</th>
-                                <th> : </th>
-                                <td><?= htmlspecialchars($ruangan['lokasi']); ?></td>
-                            </tr>
-                        </table>
-                    </form>
-                    <br/>
-                    <?php if ($adminLoggedIn): ?>
-                        <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
-                    <?php endif; ?>
-                <?php else: ?>
-                    <p>Informasi ruangan tidak tersedia.</p>
+        <section>
+            <?php if ($ruangan): ?>
+                <h2 align="center">Informasi Ruangan</h2>
+                <form action="tambah_jadwal.php" method="post">
+                    <table border="3" width="550" height="200">
+                        <tr>
+                            <th align="left">Nama Ruangan</th>
+                            <th> : </th>
+                            <td>
+                                <?= htmlspecialchars($ruangan['nama_ruangan']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left">Kapasitas</th>
+                            <th> : </th>
+                            <td>
+                                <?= htmlspecialchars($ruangan['kapasitas']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left">Jenis Ruangan</th>
+                            <th> : </th>
+                            <td>
+                                <?= htmlspecialchars($ruangan['jenis_ruangan']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th align="left">Lokasi</th>
+                            <th> : </th>
+                            <td>
+                                <?= htmlspecialchars($ruangan['lokasi']); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <br />
+                <?php if ($adminLoggedIn): ?>
+                    <a href="edit_ruangan.php?ruangan_id=<?= $ruangan['ruangan_id']; ?>">Edit Informasi Ruangan</a>
                 <?php endif; ?>
-                <hr/>
-            </section>
-        <?php endif; ?>
-            <div class="jadwalruangan">
+            <?php else: ?>
+                <p>Informasi ruangan tidak tersedia.</p>
+            <?php endif; ?>
+            <hr />
+        </section>
+        <div class="jadwalruangan">
             <section>
                 <h2>Jadwal Ruangan</h2>
                 <table>
@@ -354,19 +293,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $no = 1;
                             while ($row = $resultJadwal->fetch_assoc()) {
                                 echo "<tr align=center>
-                                            <td style='width: 5%;'>" . $no++ . "</td>
-                                            <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
-                                            <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
-                                            <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
-                                            <td style='width: 5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
-                                            <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
-                                            <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
-                                            <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
+                                        <td style='width: 5%;'>" . $no++ . "</td>
+                                        <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
+                                        <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
+                                        <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
+                                        <td style='width: 5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
+                                        <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
+                                        <td style='width: 7.5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
+                                        <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
                                 if ($adminLoggedIn) {
                                     echo "<td style='width: 7.5%;'>
-                                            <a href='edit_jadwal.php?jadwal_id=".$row["jadwal_id"]."'>Edit</a> |
-                                            <a href='delete_jadwal.php?jadwal_id=".$row["jadwal_id"]."' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
-                                        </td>";
+                                        <a href='edit_jadwal.php?jadwal_id=" . $row["jadwal_id"] . "'>Edit</a> |
+                                        <a href='delete_jadwal.php?jadwal_id=" . $row["jadwal_id"] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus jadwal ini?\");'>Hapus</a>
+                                    </td>";
                                 }
                                 echo "</tr>";
                             }
@@ -377,10 +316,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </tbody>
                 </table>
             </section>
-        </div>
     </main>
     <div class="footer">
-        <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
+        <p>&copy;
+            <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ
+        </p>
     </div>
 </body>
+
 </html>

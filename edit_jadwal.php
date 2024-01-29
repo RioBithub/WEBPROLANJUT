@@ -2,13 +2,13 @@
 include 'connection.php';
 
 // Cek apakah jadwal_id telah diterima
-if(isset($_GET['jadwal_id'])){
+if (isset($_GET['jadwal_id'])) {
     $jadwal_id = $_GET['jadwal_id'];
 
     // Query untuk mengambil data jadwal
     $query = "SELECT * FROM jadwal WHERE jadwal_id = $jadwal_id";
     $result = mysqli_query($conn, $query);
-    if($result) {
+    if ($result) {
         $jadwal = mysqli_fetch_assoc($result);
     } else {
         // Handle error - could not get jadwal
@@ -20,7 +20,7 @@ if(isset($_GET['jadwal_id'])){
 }
 
 // Cek jika form disubmit
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil data dari form
     $ruangan_id = $_POST['ruangan_id'];
     $nama_dosen = $_POST['nama_dosen'];
@@ -41,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $updateResult = mysqli_query($conn, $updateQuery);
 
-    if($updateResult){
+    if ($updateResult) {
         // Jika update berhasil, dapatkan nama ruangan untuk redirect
         $nama_ruangan_query = "SELECT nama_ruangan FROM ruangan WHERE ruangan_id = $ruangan_id";
         $nama_ruangan_result = mysqli_query($conn, $nama_ruangan_query);
@@ -62,57 +62,76 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Edit Jadwal</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f2f2f2; /* Latar belakang berwarna abu-abu muda */
+            background-color: #f2f2f2;
+            /* Latar belakang berwarna abu-abu muda */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Tinggi viewport penuh */
+            height: 100vh;
+            /* Tinggi viewport penuh */
         }
+
         .container {
             width: 80%;
-            max-width: 500px; /* Lebar maksimum untuk container */
+            max-width: 500px;
+            /* Lebar maksimum untuk container */
             margin: auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ccc; /* Border dengan warna abu-abu */
+            border: 1px solid #ccc;
+            /* Border dengan warna abu-abu */
         }
+
         h2 {
             text-align: center;
-            color: #333; /* Warna judul yang lebih gelap */
+            color: #333;
+            /* Warna judul yang lebih gelap */
         }
+
         form {
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
         }
+
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-            color: #333; /* Warna label yang lebih gelap */
+            color: #333;
+            /* Warna label yang lebih gelap */
         }
-        input[type="text"], select, input[type="time"] {
-            width: calc(100% - 16px); /* Menghitung lebar dengan padding */
+
+        input[type="text"],
+        select,
+        input[type="time"] {
+            width: calc(100% - 16px);
+            /* Menghitung lebar dengan padding */
             padding: 8px;
             margin-bottom: 20px;
-            border: 1px solid #ccc; /* Border input dengan warna abu-abu */
+            border: 1px solid #ccc;
+            /* Border input dengan warna abu-abu */
             border-radius: 4px;
         }
+
         select {
             height: 34px;
         }
+
         input[type="submit"] {
-            background-color: #00a19b; /* Warna hijau toska untuk tombol */
+            background-color: #00a19b;
+            /* Warna hijau toska untuk tombol */
             color: #fff;
             cursor: pointer;
             border: none;
@@ -120,9 +139,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             padding: 10px 20px;
             transition: background-color 0.3s ease;
         }
+
         input[type="submit"]:hover {
-            background-color: #00887d; /* Warna tombol saat di-hover */
+            background-color: #00887d;
+            /* Warna tombol saat di-hover */
         }
+
         /* Menambahkan responsivitas pada form */
         @media (max-width: 600px) {
             .container {
@@ -131,18 +153,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Edit Jadwal</h2>
         <form method="POST">
-            Ruangan ID: <input type="text" name="ruangan_id" value="<?php echo $jadwal['ruangan_id']; ?>"/><br>
-            Nama Dosen: <input type="text" name="nama_dosen" value="<?php echo $jadwal['nama_dosen']; ?>"/><br>
-            Mata Kuliah: <input type="text" name="nama_mata_kuliah" value="<?php echo $jadwal['nama_mata_kuliah']; ?>"/><br>
-            Semester: <input type="text" name="smt" value="<?php echo $jadwal['smt']; ?>"/><br>
-            Kelas: <input type="text" name="kelas" value="<?php echo $jadwal['kelas']; ?>"/><br>
-            Jam Mulai: <input type="time" name="jam_mulai" value="<?php echo $jadwal['jam_mulai']; ?>"/><br>
-            Jam Akhir: <input type="time" name="jam_akhir" value="<?php echo $jadwal['jam_akhir']; ?>"/><br>
-            Hari: 
+            Ruangan ID: <input type="text" name="ruangan_id" value="<?php echo $jadwal['ruangan_id']; ?>"
+                readonly /><br>
+            Nama Dosen: <input type="text" name="nama_dosen" value="<?php echo $jadwal['nama_dosen']; ?>" /><br>
+            Mata Kuliah: <input type="text" name="nama_mata_kuliah"
+                value="<?php echo $jadwal['nama_mata_kuliah']; ?>" /><br>
+            Semester: <input type="text" name="smt" value="<?php echo $jadwal['smt']; ?>" /><br>
+            Kelas: <input type="text" name="kelas" value="<?php echo $jadwal['kelas']; ?>" /><br>
+            Jam Mulai: <input type="time" name="jam_mulai" value="<?php echo $jadwal['jam_mulai']; ?>" /><br>
+            Jam Akhir: <input type="time" name="jam_akhir" value="<?php echo $jadwal['jam_akhir']; ?>" /><br>
+            Hari:
             <select name="hari">
                 <?php
                 $hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
@@ -151,8 +176,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 ?>
             </select><br>
-            <input type="submit" value="Update Jadwal"/>
+            <input type="submit" value="Update Jadwal" />
         </form>
     </div>
 </body>
+
 </html>
