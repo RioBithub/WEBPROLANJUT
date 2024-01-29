@@ -145,6 +145,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* Warna tombol saat di-hover */
         }
 
+        .link-tabel {
+            width: calc(100% - 16px);
+            /* Menghitung lebar dengan padding */
+            padding: 7px;
+            border: 1px solid #b2dfdb;
+            /* Border input dengan warna hijau toska */
+            border-radius: 4px;
+            background-color: #FF0000;
+            /* Warna tombol dengan nuansa hijau toska */
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .link-tabel:hover {
+            background-color: #CE0000;
+        }
+
         /* Menambahkan responsivitas pada form */
         @media (max-width: 600px) {
             .container {
@@ -156,7 +175,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container">
-        <h2>Edit Jadwal</h2>
+        <h2 style="margin-bottom: -30px;">Edit Jadwal</h2>
         <form method="POST">
             Ruangan ID: <input type="text" name="ruangan_id" value="<?php echo $jadwal['ruangan_id']; ?>"
                 readonly /><br>
@@ -176,7 +195,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 ?>
             </select><br>
-            <input type="submit" value="Update Jadwal" />
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <input type="submit" value="Update Jadwal" style="width: 73%;">
+                <a href="javascript:history.back()" class="link-tabel" style="width: 23%; text-align: center;">Cancel</a>
+            </div>
         </form>
     </div>
 </body>

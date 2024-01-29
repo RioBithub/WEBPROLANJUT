@@ -69,61 +69,101 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Edit Ruangan</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #eef5f3; /* Warna latar yang lebih lembut */
+            background-color: #eef5f3;
+            /* Warna latar yang lebih lembut */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Tinggi viewport penuh */
+            height: 100vh;
+            /* Tinggi viewport penuh */
         }
+
         .container {
             width: 80%;
-            max-width: 500px; /* Lebar maksimum untuk container */
+            max-width: 500px;
+            /* Lebar maksimum untuk container */
             margin: auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid #b2dfdb; /* Border dengan warna hijau toska */
+            border: 1px solid #b2dfdb;
+            /* Border dengan warna hijau toska */
         }
+
         h2 {
             text-align: center;
-            color: #00695c; /* Warna judul dengan nuansa hijau toska */
+            color: #00695c;
+            /* Warna judul dengan nuansa hijau toska */
         }
+
         form {
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
         }
+
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-            color: #00695c; /* Warna label dengan nuansa hijau toska */
+            color: #00695c;
+            /* Warna label dengan nuansa hijau toska */
         }
-        input[type="text"], input[type="submit"] {
-            width: calc(100% - 16px); /* Menghitung lebar dengan padding */
+
+        input[type="text"],
+        input[type="submit"] {
+            width: calc(100% - 16px);
+            /* Menghitung lebar dengan padding */
             padding: 8px;
             margin-bottom: 20px;
-            border: 1px solid #b2dfdb; /* Border input dengan warna hijau toska */
+            border: 1px solid #b2dfdb;
+            /* Border input dengan warna hijau toska */
             border-radius: 4px;
         }
+
         input[type="submit"] {
-            background-color: #00695c; /* Warna tombol dengan nuansa hijau toska */
+            background-color: #00695c;
+            /* Warna tombol dengan nuansa hijau toska */
             color: #fff;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         input[type="submit"]:hover {
-            background-color: #004d40; /* Warna tombol saat di-hover */
+            background-color: #004d40;
+            /* Warna tombol saat di-hover */
         }
+
+        .link-tabel {
+            width: calc(100% - 16px);
+            /* Menghitung lebar dengan padding */
+            padding: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #b2dfdb;
+            /* Border input dengan warna hijau toska */
+            border-radius: 4px;
+            background-color: #FF0000;
+            /* Warna tombol dengan nuansa hijau toska */
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .link-tabel:hover {
+            background-color: #CE0000;
+        }
+
         /* Menambahkan responsivitas pada form */
         @media (max-width: 600px) {
             .container {
@@ -132,28 +172,37 @@ $conn->close();
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h2>Edit Ruangan</h2>
+        <h2 style="margin-bottom: -30px;">Edit Ruangan</h2>
         <?php if (!empty($error)): ?>
-            <p style="color: red;"><?php echo $error; ?></p>
+            <p style="color: red;">
+                <?php echo $error; ?>
+            </p>
         <?php endif; ?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <input type="hidden" name="ruangan_id" value="<?php echo $ruangan_id; ?>">
             <label for="nama_ruangan">Nama Ruangan:</label>
-            <input type="text" name="nama_ruangan" id="nama_ruangan" value="<?php echo $ruangan['nama_ruangan']; ?>" required>
+            <input type="text" name="nama_ruangan" id="nama_ruangan" value="<?php echo $ruangan['nama_ruangan']; ?>"
+                required>
 
             <label for="kapasitas">Kapasitas:</label>
             <input type="text" name="kapasitas" id="kapasitas" value="<?php echo $ruangan['kapasitas']; ?>" required>
 
             <label for="jenis_ruangan">Jenis Ruangan:</label>
-            <input type="text" name="jenis_ruangan" id="jenis_ruangan" value="<?php echo $ruangan['jenis_ruangan']; ?>" required>
+            <input type="text" name="jenis_ruangan" id="jenis_ruangan" value="<?php echo $ruangan['jenis_ruangan']; ?>"
+                required>
 
             <label for="lokasi">Lokasi:</label>
             <input type="text" name="lokasi" id="lokasi" value="<?php echo $ruangan['lokasi']; ?>" required>
 
-            <input type="submit" value="Update Ruangan">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <input type="submit" value="Update Ruangan" style="width: 73%;">
+                <a href="javascript:history.back()" class="link-tabel" style="width: 23%; text-align: center;">Cancel</a>
+            </div>
         </form>
     </div>
 </body>
+
 </html>

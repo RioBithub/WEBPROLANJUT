@@ -161,6 +161,25 @@ $conn->close();
             /* Warna tombol saat di-hover */
         }
 
+        .link-tabel {
+            width: calc(100% - 16px);
+            /* Menghitung lebar dengan padding */
+            padding: 7px;
+            border: 1px solid #b2dfdb;
+            /* Border input dengan warna hijau toska */
+            border-radius: 4px;
+            background-color: #FF0000;
+            /* Warna tombol dengan nuansa hijau toska */
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .link-tabel:hover {
+            background-color: #CE0000;
+        }
+
         /* Menambahkan responsivitas pada form */
         @media (max-width: 600px) {
             .container {
@@ -208,7 +227,10 @@ $conn->close();
                 <option value="JUMAT">JUMAT</option>
                 <option value="SABTU">SABTU</option>
             </select><br>
-            <input type="submit" value="Tambah Jadwal" />
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <input type="submit" value="Tambah Jadwal" style="width: 73%;">
+                <a href="javascript:history.back()" class="link-tabel" style="width: 23%; text-align: center;">Cancel</a>
+            </div>
         </form>
     </div>
     <?php if (!empty($error)): ?>
