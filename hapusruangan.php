@@ -42,6 +42,7 @@ $resultAddedRooms = $conn->query($sqlAddedRooms);
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Hapus Ruangan - Sistem Informasi Ruangan</title>
@@ -77,6 +78,32 @@ $resultAddedRooms = $conn->query($sqlAddedRooms);
             background-color: #0056b3;
         }
 
+        .red-button {
+            background-color: red;
+            color: white;
+            padding: 5px 20px;
+            /* Mengatur padding yang lebih kecil untuk tombol */
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+            /* Mengatur teks ke tengah */
+            display: inline-block;
+            /* Mengatur agar tombol berukuran sesuai dengan konten */
+            width: auto;
+            /* Mengatur agar lebar tombol disesuaikan dengan teks */
+        }
+
+        .red-button:hover {
+            background-color: darkred;
+        }
+
+
+
+
         .form-container {
             max-width: 400px;
             width: 100%;
@@ -91,7 +118,8 @@ $resultAddedRooms = $conn->query($sqlAddedRooms);
             flex-direction: column;
         }
 
-        label, select {
+        label,
+        select {
             margin-bottom: 10px;
         }
 
@@ -102,11 +130,14 @@ $resultAddedRooms = $conn->query($sqlAddedRooms);
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <h2 class="green-heading">Hapus Ruangan</h2>
         <?php if ($message): ?>
-            <p><?php echo $message; ?></p>
+            <p>
+                <?php echo $message; ?>
+            </p>
         <?php endif; ?>
 
         <form action="hapusruangan.php" method="post">
@@ -136,7 +167,10 @@ $resultAddedRooms = $conn->query($sqlAddedRooms);
                 </optgroup>
             </select>
             <input type="submit" value="Hapus Ruangan" class="green-button">
+            <a href="daftar_ruangan.php" class="red-button">Cancel</a>
+
         </form>
     </div>
 </body>
+
 </html>

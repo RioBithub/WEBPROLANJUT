@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Tambah Ruangan - Sistem Informasi Ruangan</title>
@@ -77,6 +78,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: #0056b3;
         }
 
+        .red-button {
+            background-color: #00A79D;
+            color: white;
+            padding: 10px 70px;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+            display: inline-block;
+            width: auto;
+            font-size: 14px;
+            /* Mengatur ukuran font */
+        }
+
+        .red-button {
+            background-color: red;
+            padding: 6px 30px;
+        }
+
+        .red-button:hover {
+            background-color: darkred;
+        }
+
         .error {
             color: red;
         }
@@ -108,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <h2 class="green-heading">Tambah Ruangan Baru</h2>
@@ -130,7 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" name="lokasi" id="lokasi" required>
 
             <input type="submit" value="Tambah" class="green-button" style="margin: 15 auto;">
+            <a href="daftar_ruangan.php" class="red-button" style="margin: 600 auto;">Cancel</a>
         </form>
     </div>
 </body>
+
 </html>
