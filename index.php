@@ -22,8 +22,16 @@ function convertHariToNama($nomorHari) {
 }
 
 $nomorHari = date('N');
-$hariIni = convertHariToNama($nomorHari);
-$tanggal = date('d F Y');
+if ($nomorHari == 7) {
+    // Jika hari Minggu, tambahkan 1 hari untuk mendapatkan hari esok
+    $hariIni = convertHariToNama(1);
+    $tanggal = date('d F Y', strtotime('+1 day'));
+    $peringatan = "Jadwal Hari Esok:";
+} else {
+    $hariIni = convertHariToNama($nomorHari);
+    $tanggal = date('d F Y');
+    $peringatan = "Jadwal Hari Ini:";
+}
 
 // Query untuk mengambil jadwal berdasarkan ruangan dan hari ini
 $sqlJadwal = "SELECT j.*, r.nama_ruangan FROM jadwal j 
@@ -105,10 +113,14 @@ $resultJadwal = $conn->query($sqlJadwal);
             right: 0;
             margin-top: -78px;
         }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <div class="utama">
+<div class="utama">
         <h1 align="center">Sistem Informasi Jadwal Ruangan TIK PNJ</h1>
         <div class="pnjlogo">
             <img src="pnj-logo.svg" alt="logo    tik" width="65" height="70">
@@ -124,52 +136,52 @@ $resultJadwal = $conn->query($sqlJadwal);
             <li><a href="daftar_ruangan.php">Daftar Ruangan</a></li>
             <li><a href="about.php">About</a></li>
             <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-                <li class="nav-right"><a href="logout.php">Logout</a><li>
+                <li class="nav-right"><a href="logout.php">Logout</a></li>
             <?php else: ?>
-                <li class="nav-right"><a href="login.php">Login Admin</a><li>
+                <li class="nav-right"><a href="login.php">Login Admin</a></li>
             <?php endif; ?>
         </ul>
     </div>
     <main>
-    <section>
-        <h2>Jadwal Ruangan Hari Ini, <?= $hariIni ?>, <?= $tanggal ?></h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Dosen</th>
-                    <th>Mata Kuliah</th>
-                    <th>Semester</th>
-                    <th>Kelas</th>
-                    <th>Ruangan</th>
-                    <th>Jam Mulai</th>
-                    <th>Jam Akhir</th>
-                    <th>Hari</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($resultJadwal && $resultJadwal->num_rows > 0) {
-                    $no = 1;
-                    while ($row = $resultJadwal->fetch_assoc()) {
-                        echo "<tr>
-                                <td style='width: 5%;'>" . $no++ . "</td>
-                                <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
-                                <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
-                                <td style='width: 7.5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
-                                <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
+        <section>
+            <h2><?= $peringatan ?> <?= $hariIni ?>, <?= $tanggal ?></h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Dosen</th>
+                        <th>Mata Kuliah</th>
+                        <th>Semester</th>
+                        <th>Kelas</th>
+                        <th>Ruangan</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Akhir</th>
+                        <th>Hari</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($resultJadwal && $resultJadwal->num_rows > 0) {
+                        $no = 1;
+                        while ($row = $resultJadwal->fetch_assoc()) {
+                            echo "<tr>
+                                    <td style='width: 5%;'>" . $no++ . "</td>
+                                    <td style='width: 17.5%;'>" . htmlspecialchars($row["nama_dosen"]) . "</td>
+                                    <td style='width: 15%;'>" . htmlspecialchars($row["nama_mata_kuliah"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["smt"]) . "</td>
+                                    <td style='width: 7.5%;'>" . htmlspecialchars($row["kelas"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["nama_ruangan"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["jam_mulai"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["jam_akhir"]) . "</td>
+                                    <td style='width: 5%;'>" . htmlspecialchars($row["hari"]) . "</td>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='9'>Tidak ada jadwal yang tersedia.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </section>
+                    ?>
+                </tbody>
+            </table>
+        </section>
     </main>
     <div class="footer">
         <p>&copy; <?= date("Y"); ?> Teknik Informatika dan Komputer PNJ</p>
